@@ -2,7 +2,7 @@ package com.toh.database.entity;
 
 import java.util.ArrayList;
 
-public class RoomType {
+public class RoomType extends BaseEntity {
     private String name;
     private ArrayList<Facility> facilities;
 

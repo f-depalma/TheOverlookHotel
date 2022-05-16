@@ -1,15 +1,41 @@
 package com.toh.database.entity;
 
+import com.toh.database.repository.FacilityRepository;
+
 import java.util.ArrayList;
 
-public class Booking {
+public class Booking extends BaseEntity {
 
-    private Room room;
-    private Guest guest;
-    private Date arrive;
+    private int room;
+    private int guest;
+    private String arrive;
     private int arriveHour;
-    private Date departure;
-    private ArrayList<Facility> facilities;
+    private String departure;
+    private ArrayList<Integer> facilities = new ArrayList<>();
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
+    }
+
+    public int getGuest() {
+        return guest;
+    }
+
+    public void setGuest(int guest) {
+        this.guest = guest;
+    }
+
+    public String getArrive() {
+        return arrive;
+    }
+
+    public void setArrive(String arrive) {
+        this.arrive = arrive;
+    }
 
     public int getArriveHour() {
         return arriveHour;
@@ -19,43 +45,19 @@ public class Booking {
         this.arriveHour = arriveHour;
     }
 
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }
-
-    public Date getArrive() {
-        return arrive;
-    }
-
-    public void setArrive(Date arrive) {
-        this.arrive = arrive;
-    }
-
-    public Date getDeparture() {
+    public String getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Date departure) {
+    public void setDeparture(String departure) {
         this.departure = departure;
     }
 
-    public ArrayList<Facility> getFacilities() {
+    public ArrayList<Integer> getFacilities() {
         return facilities;
     }
 
-    public void setFacilities(ArrayList<Facility> facilities) {
+    public void setFacilities(ArrayList<Integer> facilities) {
         this.facilities = facilities;
     }
 }

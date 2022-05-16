@@ -1,6 +1,6 @@
 package com.toh.database.entity;
 
-public class Facility {
+public class Facility extends BaseEntity {
     private String name;
     private String description;
     private double price;

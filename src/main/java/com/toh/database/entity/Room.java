@@ -1,6 +1,6 @@
 package com.toh.database.entity;
 
-public class Room {
+public class Room extends BaseEntity {
     private String number;
     private RoomType type;
     private int beds;

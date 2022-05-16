@@ -2,7 +2,7 @@ package com.toh.database.entity;
 
 import java.util.ArrayList;
 
-public class Checkin {
+public class Checkin extends BaseEntity {
     private ArrayList<Guest> guests;
     private Booking booking;
 
