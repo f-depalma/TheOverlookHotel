@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Booking {
 
-    private Room room420;
+    private Room room;
     private Guest guest;
     private Date arrive;
     private int arriveHour;
