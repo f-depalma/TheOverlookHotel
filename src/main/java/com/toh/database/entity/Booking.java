@@ -10,7 +10,7 @@ public class Booking extends BaseEntity {
     private MappedField<Room> room = new MappedField<>(Room.class);
     private MappedField<Guest> guest = new MappedField<>(Guest.class);
     private Date arrive = new Date();
-    private int arriveHour;
+    private Integer arriveHour;
     private Date departure = new Date();
     private MappedList<Facility> facilities = new MappedList<>(Facility.class);
 
@@ -38,11 +38,11 @@ public class Booking extends BaseEntity {
         this.arrive = arrive;
     }
 
-    public int getArriveHour() {
+    public Integer getArriveHour() {
         return arriveHour;
     }
 
-    public void setArriveHour(int arriveHour) {
+    public void setArriveHour(Integer arriveHour) {
         this.arriveHour = arriveHour;
     }
 

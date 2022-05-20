@@ -1,6 +1,9 @@
 package com.toh.theoverlookhotel;
 
 import com.toh.database.entity.Booking;
+import com.toh.database.entity.Date;
+import com.toh.database.entity.Facility;
+import com.toh.database.entity.Guest;
 import com.toh.database.repository.BookingRepository;
 import com.toh.database.repository.FacilityRepository;
 import com.toh.database.repository.GuestRepository;
@@ -23,6 +26,18 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        for (Booking b : BookingRepository.get().getAll()) {
+            System.out.println(BookingRepository.get().getConnector().ObjToJson(b));
+        }
+
+        for (Facility b : FacilityRepository.get().getAll()) {
+            System.out.println(FacilityRepository.get().getConnector().ObjToJson(b));
+        }
+
+        for (Guest b : GuestRepository.get().getAll()) {
+            System.out.println(GuestRepository.get().getConnector().ObjToJson(b));
+        }
+
+        //launch();
     }
 }

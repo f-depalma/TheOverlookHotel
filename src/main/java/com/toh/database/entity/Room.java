@@ -1,13 +1,14 @@
 package com.toh.database.entity;
 
 import com.toh.database.core.BaseEntity;
+import com.toh.database.core.MappedField;
 
 public class Room extends BaseEntity {
     private String number;
-    private RoomType type;
-    private int beds;
-    private boolean smoking;
-    private double price;
+    private MappedField<RoomType> type;
+    private Integer beds;
+    private Boolean smoking;
+    private Double price;
 
     public String getNumber() {
         return number;
@@ -18,34 +19,34 @@ public class Room extends BaseEntity {
     }
 
     public RoomType getType() {
-        return type;
+        return type.getValue();
     }
 
     public void setType(RoomType type) {
-        this.type = type;
+        this.type.setValue(type);
     }
 
-    public int getBeds() {
+    public Integer getBeds() {
         return beds;
     }
 
-    public void setBeds(int beds) {
+    public void setBeds(Integer beds) {
         this.beds = beds;
     }
 
-    public boolean isSmoking() {
+    public Boolean isSmoking() {
         return smoking;
     }
 
-    public void setSmoking(boolean smoking) {
+    public void setSmoking(Boolean smoking) {
         this.smoking = smoking;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

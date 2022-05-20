@@ -7,22 +7,22 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.io.FileNotFoundException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
-public class DataBase<T extends BaseEntity> {
-    private ArrayList<T> list = new ArrayList<>();
+public class Connector<T extends BaseEntity> {
     private Class<T> type;
+    private String fileName;
 
-    public DataBase(Class<T> clazz, String fileName) {
+    public Connector(Class<T> clazz, String fileName) {
         this.type = clazz;
-        load(fileName);
+        this.fileName = fileName;
     }
 
-    public ArrayList<T> get() {
-        return list;
-    }
 
-    private void load(String fileName) {
+    public ArrayList<T> load() {
+        ArrayList<T> list = new ArrayList<>();
         Scanner read = openFile(fileName);
         T obj = null;
         String str = "";
@@ -31,26 +31,33 @@ public class DataBase<T extends BaseEntity> {
         while (read.hasNext()) {
             str = getNextLine(read);
 
-            if (str.equals("{")) {
+            if (str.contains("]") && !str.contains("[")) {
+                read.close();
+                break;
+            } else if (str.equals("{")) {
                 try {
                     obj = type.getConstructor().newInstance();
                 } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
-            } else if (str.equals("}")) {
+            } else if (str.contains("}")) {
                 list.add(obj);
-            } else if (str.contains("[")) {
-                String field = str.split(":")[0];
+            } else if (str.contains("[") && str.contains("]")) {
+                String[] splitted = str.split(":");
+                String[] ids = splitted[1]
+                        .replace(" ", "")
+                        .replace("[", "")
+                        .replace("]", "")
+                        .split(",");
+
                 ArrayList<Integer> idList = new ArrayList<>();
 
-                str = getNextLine(read);
-                while (!str.equals("]")) {
-                    idList.add(Integer.parseInt(str));
-                    str = getNextLine(read);
+                for (String id : ids) {
+                    idList.add(Integer.parseInt(id));
                 }
 
                 try {
-                    Field mappedList = type.getDeclaredField(field);
+                    Field mappedList = type.getDeclaredField(splitted[0]);
                     mappedList.setAccessible(true);
                     MappedList.class.getMethod("setIds", ArrayList.class)
                             .invoke(mappedList.get(obj), idList);
@@ -58,7 +65,8 @@ public class DataBase<T extends BaseEntity> {
                     e.printStackTrace();
                 }
 
-            } else if (!str.equals("[") && !str.equals("]")) {
+            } else {
+                str = str.replace(",", "");
                 String[] splitted = str.split(":");
                 String field = splitted[0];
                 String value = splitted[1].trim();
@@ -77,19 +85,23 @@ public class DataBase<T extends BaseEntity> {
 
                 try {
                     switch (parClass.getSimpleName()) {
-                        case "int":
+                        case "Integer":
                             type.getMethod(getMethodName(field), parClass)
-                                    .invoke(obj, Integer.parseInt(value));
+                                    .invoke(obj, Integer.valueOf(value));
                             break;
-                        case "double":
+                        case "Double":
                             type.getMethod(getMethodName(field), parClass)
-                                    .invoke(obj, Double.parseDouble(value));
+                                    .invoke(obj, Double.valueOf(value));
+                            break;
+                        case "Boolean":
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, Boolean.valueOf(value));
                             break;
                         case "MappedField": {
                             Field mappedField = type.getDeclaredField(field);
                             mappedField.setAccessible(true);
                             MappedField.class.getMethod("setId", int.class)
-                                    .invoke(mappedField.get(obj), Integer.parseInt(value));
+                                    .invoke(mappedField.get(obj), Integer.valueOf(value));
                             break;
                         }
                         case "Date": {
@@ -108,7 +120,7 @@ public class DataBase<T extends BaseEntity> {
                 }
             }
         }
-        read.close();
+        return list;
     }
 
     private static Scanner openFile(String fileName) {
@@ -124,11 +136,51 @@ public class DataBase<T extends BaseEntity> {
     }
 
     private String getNextLine(Scanner read) {
-        return read.nextLine().trim().replace("\"", "").replace(",", "");
+        return read.nextLine().trim().replace("\"", "");
     }
 
     private String getMethodName(String name) {
         return "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
+    }
+
+    public void save(T entity) {
+
+    }
+
+    public String ObjToJson(T obj) {
+        String json = "{\n";
+        List<Field> fields = Stream.concat(
+                        Arrays.stream(BaseEntity.class.getDeclaredFields()),
+                        Arrays.stream(obj.getClass().getDeclaredFields()))
+                .collect(Collectors.toList());
+        ;
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(obj);
+                if (field.getType().equals(MappedList.class)) {
+                    ArrayList<Integer> ids = (ArrayList<Integer>) MappedList.class.getMethod("getIds").invoke(value);
+                    json += "\t\"" + field.getName() + "\": [";
+                    for (int i = 0; i < ids.size(); i++) {
+                        json += ids.get(i) + (i + 1 < ids.size() ? ", " : "");
+                    }
+                    json += "],\n";
+                } else if (field.getType().equals(MappedField.class)) {
+                    json += "\t\"" + field.getName() + "\": " + MappedField.class.getMethod("getId").invoke(value) + ",\n";
+                } else {
+                    json += "\t\"" + field.getName() + "\": ";
+                    if (!Number.class.isAssignableFrom(field.getType()) && value != null && value.toString() != null) {
+                        json += "\"" + value + "\",\n";
+                    } else {
+                        json += value + ",\n";
+                    }
+                }
+            } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        json = json.substring(0, json.length() - 2) + "\n}";
+        return json;
     }
 }
 

@@ -5,19 +5,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Repository<T extends BaseEntity> {
-    DataBase<T> dataBase;
-
+    private Connector<T> connector;
+    private ArrayList<T> data = new ArrayList<>();
 
     public Repository(Class<T> clazz, String fileName) {
-        dataBase = new DataBase<>(clazz, fileName);
+        connector = new Connector<>(clazz, fileName);
+        data = connector.load();
     }
 
     public T findById(int id) {
-        List<T> result = dataBase.get().stream().filter(f -> f.getId() == id).collect(Collectors.toList());
-        return result.size() > 0? result.get(0) : null;
+        List<T> result = data.stream().filter(f -> f.getId() == id).collect(Collectors.toList());
+        return result.size() > 0 ? result.get(0) : null;
     }
 
     public ArrayList<T> getAll() {
-        return dataBase.get();
+        return data;
+    }
+
+    public void save(T entity) {
+        data.removeIf(f -> f.getId() == entity.getId());
+        data.add(entity);
+    }
+
+    public Connector<T> getConnector() {
+        return connector;
     }
 }

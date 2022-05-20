@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MappedField<T extends BaseEntity> {
 
-    private int id;
+    private Integer id;
     private T value;
     private Class<T> clazz;
 
@@ -33,4 +33,6 @@ public class MappedField<T extends BaseEntity> {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Integer getId() { return this.id; }
 }

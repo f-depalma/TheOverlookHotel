@@ -1,26 +1,28 @@
 package com.toh.database.entity;
 
 import com.toh.database.core.BaseEntity;
+import com.toh.database.core.MappedField;
+import com.toh.database.core.MappedList;
 
 import java.util.ArrayList;
 
 public class Checkin extends BaseEntity {
-    private ArrayList<Guest> guests;
-    private Booking booking;
+    private MappedList<Guest> guests = new MappedList<>(Guest.class);
+    private MappedField<Booking> booking;
 
     public ArrayList<Guest> getGuests() {
-        return guests;
+        return guests.getValue();
     }
 
     public void setGuests(ArrayList<Guest> guests) {
-        this.guests = guests;
+        this.guests.setValue(guests);
     }
 
     public Booking getBooking() {
-        return booking;
+        return booking.getValue();
     }
 
     public void setBooking(Booking booking) {
-        this.booking = booking;
+        this.booking.setValue(booking);
     }
 }

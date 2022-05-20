@@ -45,4 +45,18 @@ public class MappedList<T extends BaseEntity> {
     public void setIds(ArrayList<Integer> ids) {
         this.ids = ids;
     }
+
+    public ArrayList<Integer> getIds() {
+        return this.ids;
+    }
+
+    public void add(T entity) {
+        this.ids.add(entity.getId());
+        this.value.add(entity);
+    }
+
+    public void remove(int id) {
+        this.ids.removeIf(f -> f == id);
+        this.value.removeIf(f -> f.getId() == id);
+    }
 }
