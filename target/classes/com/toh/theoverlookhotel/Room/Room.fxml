@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.toh.theoverlookhotel.room.RoomController">
+   <children>
+      <Button layoutX="533.0" layoutY="349.0" mnemonicParsing="false" onAction="#GoBackButton" text="Back" />
+      <Label layoutX="237.0" layoutY="24.0" text="Room" textFill="#610000">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Button layoutX="198.0" layoutY="144.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="172.0" layoutY="200.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="67.0" layoutY="144.0" mnemonicParsing="false" text="utton">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="82.0" layoutY="200.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>
