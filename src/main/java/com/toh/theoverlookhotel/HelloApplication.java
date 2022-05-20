@@ -1,9 +1,9 @@
 package com.toh.theoverlookhotel;
 
-import com.toh.database.DataBase;
-import com.toh.database.entity.Guest;
+import com.toh.database.entity.Booking;
 import com.toh.database.repository.BookingRepository;
 import com.toh.database.repository.FacilityRepository;
+import com.toh.database.repository.GuestRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,9 +23,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        BookingRepository b = new BookingRepository();
-        FacilityRepository f = new FacilityRepository();
-
         launch();
     }
 }

@@ -1,4 +1,4 @@
-package com.toh.database.entity;
+package com.toh.database.core;
 
 public abstract class BaseEntity {
     private int id;

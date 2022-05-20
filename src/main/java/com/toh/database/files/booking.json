@@ -1,9 +1,12 @@
 [
   {
+    "id": 1,
     "facilities": [
       1,
       2
     ],
-    "arriveHour": 10
+    "arriveHour": 10,
+    "arrive": "10/05/2022",
+    "guest": 1
   }
 ]

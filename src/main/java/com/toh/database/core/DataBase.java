@@ -1,8 +1,9 @@
-package com.toh.database;
+package com.toh.database.core;
 
-import com.toh.database.entity.*;
+import com.toh.database.entity.Date;
 
 import java.io.FileInputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.io.FileNotFoundException;
@@ -49,8 +50,11 @@ public class DataBase<T extends BaseEntity> {
                 }
 
                 try {
-                    obj.getClass().getMethod(getMethodName(field) + "Ids", ArrayList.class).invoke(obj, idList);
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                    Field mappedList = type.getDeclaredField(field);
+                    mappedList.setAccessible(true);
+                    MappedList.class.getMethod("setIds", ArrayList.class)
+                            .invoke(mappedList.get(obj), idList);
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
                     e.printStackTrace();
                 }
 
@@ -62,7 +66,7 @@ public class DataBase<T extends BaseEntity> {
                 Class parClass = null;
 
                 try {
-                    parClass = obj.getClass().getDeclaredField(splitted[0]).getType();
+                    parClass = type.getDeclaredField(splitted[0]).getType();
                 } catch (NoSuchFieldException e) {
                     try {
                         parClass = BaseEntity.class.getDeclaredField(splitted[0]).getType();
@@ -71,12 +75,35 @@ public class DataBase<T extends BaseEntity> {
                     }
                 }
 
-                boolean integer = parClass.getName().equals("int");
-                boolean doubl = parClass.getName().equals("double");
-
                 try {
-                    obj.getClass().getMethod(getMethodName(field), parClass).invoke(obj, integer ? Integer.parseInt(value) : doubl? Double.parseDouble(value): value);
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                    switch (parClass.getSimpleName()) {
+                        case "int":
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, Integer.parseInt(value));
+                            break;
+                        case "double":
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, Double.parseDouble(value));
+                            break;
+                        case "MappedField": {
+                            Field mappedField = type.getDeclaredField(field);
+                            mappedField.setAccessible(true);
+                            MappedField.class.getMethod("setId", int.class)
+                                    .invoke(mappedField.get(obj), Integer.parseInt(value));
+                            break;
+                        }
+                        case "Date": {
+                            Field mappedField = type.getDeclaredField(field);
+                            mappedField.setAccessible(true);
+                            Date.class.getMethod("set", String.class)
+                                    .invoke(mappedField.get(obj), value);
+                            break;
+                        }
+                        default:
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, value);
+                    }
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchFieldException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
             }

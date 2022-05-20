@@ -1,5 +1,7 @@
 package com.toh.database.entity;
 
+import com.toh.database.core.BaseEntity;
+
 import java.util.ArrayList;
 
 public class RoomType extends BaseEntity {

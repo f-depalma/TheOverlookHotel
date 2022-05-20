@@ -1,7 +1,4 @@
-package com.toh.database.repository;
-
-import com.toh.database.DataBase;
-import com.toh.database.entity.BaseEntity;
+package com.toh.database.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +7,8 @@ import java.util.stream.Collectors;
 public class Repository<T extends BaseEntity> {
     DataBase<T> dataBase;
 
-    Repository(Class<T> clazz, String fileName) {
+
+    public Repository(Class<T> clazz, String fileName) {
         dataBase = new DataBase<>(clazz, fileName);
     }
 

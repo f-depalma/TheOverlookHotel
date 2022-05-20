@@ -1,5 +1,7 @@
 package com.toh.database.entity;
 
+import com.toh.database.core.BaseEntity;
+
 public class Checkout extends BaseEntity {
     private Booking booking;
     private double price;

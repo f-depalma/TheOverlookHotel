@@ -1,5 +1,7 @@
 package com.toh.database.entity;
 
+import com.toh.database.core.BaseEntity;
+
 public class Room extends BaseEntity {
     private String number;
     private RoomType type;

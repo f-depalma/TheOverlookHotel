@@ -1,18 +1,19 @@
 package com.toh.database.repository;
 
-import com.toh.database.entity.BaseEntity;
+import com.toh.database.core.Repository;
 import com.toh.database.entity.Guest;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
+public class GuestRepository {
+    private static Repository<Guest> instance;
 
-public class GuestRepository extends Repository<Guest>{
-    public GuestRepository() {
-        super(Guest.class, "guest.json");
+    private GuestRepository() {};
+
+    public static Repository<Guest> get() {
+        if (instance == null) {
+            instance = new Repository<>(Guest.class, "guest.json");
+        }
+        return instance;
     }
 }
 

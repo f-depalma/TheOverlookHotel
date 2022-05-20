@@ -5,6 +5,13 @@ public class Date {
     private int month;
     private int year;
 
+    public void set(String date) {
+        String[] splitted = date.split("/");
+        day = Integer.parseInt(splitted[0]);
+        month = Integer.parseInt(splitted[1]);
+        year = Integer.parseInt(splitted[2]);
+    }
+
     public int getDay() {
         return day;
     }

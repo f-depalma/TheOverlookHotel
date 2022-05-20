@@ -1,12 +1,19 @@
 package com.toh.database.repository;
 
+import com.toh.database.core.Repository;
 import com.toh.database.entity.Facility;
-import com.toh.database.entity.Guest;
 
 
-public class FacilityRepository extends Repository<Facility>{
-    public FacilityRepository() {
-        super(Facility.class, "facility.json");
+public class FacilityRepository{
+    private static Repository<Facility> instance;
+
+    private FacilityRepository() {};
+
+    public static Repository<Facility> get() {
+        if (instance == null) {
+            instance = new Repository<>(Facility.class, "facility.json");
+        }
+        return instance;
     }
 }
 

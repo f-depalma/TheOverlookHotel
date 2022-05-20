@@ -1,39 +1,40 @@
 package com.toh.database.entity;
 
-import com.toh.database.repository.FacilityRepository;
+import com.toh.database.core.BaseEntity;
+import com.toh.database.core.MappedField;
+import com.toh.database.core.MappedList;
 
 import java.util.ArrayList;
 
 public class Booking extends BaseEntity {
-
-    private int room;
-    private int guest;
-    private String arrive;
+    private MappedField<Room> room = new MappedField<>(Room.class);
+    private MappedField<Guest> guest = new MappedField<>(Guest.class);
+    private Date arrive = new Date();
     private int arriveHour;
-    private String departure;
-    private ArrayList<Integer> facilities = new ArrayList<>();
+    private Date departure = new Date();
+    private MappedList<Facility> facilities = new MappedList<>(Facility.class);
 
-    public int getRoom() {
-        return room;
+    public Room getRoom() {
+        return room.getValue();
     }
 
-    public void setRoom(int room) {
-        this.room = room;
+    public void setRoom(Room room) {
+        this.room.setValue(room);
     }
 
-    public int getGuest() {
-        return guest;
+    public Guest getGuest() {
+        return guest.getValue();
     }
 
-    public void setGuest(int guest) {
-        this.guest = guest;
+    public void setGuest(Guest guest) {
+        this.guest.setValue(guest);
     }
 
-    public String getArrive() {
+    public Date getArrive() {
         return arrive;
     }
 
-    public void setArrive(String arrive) {
+    public void setArrive(Date arrive) {
         this.arrive = arrive;
     }
 
@@ -45,19 +46,19 @@ public class Booking extends BaseEntity {
         this.arriveHour = arriveHour;
     }
 
-    public String getDeparture() {
+    public Date getDeparture() {
         return departure;
     }
 
-    public void setDeparture(String departure) {
+    public void setDeparture(Date departure) {
         this.departure = departure;
     }
 
-    public ArrayList<Integer> getFacilities() {
-        return facilities;
+    public ArrayList<Facility> getFacilities() {
+        return facilities.getValue();
     }
 
-    public void setFacilities(ArrayList<Integer> facilities) {
-        this.facilities = facilities;
+    public void setFacilities(ArrayList<Facility> facilities) {
+        this.facilities.setValue(facilities);
     }
 }

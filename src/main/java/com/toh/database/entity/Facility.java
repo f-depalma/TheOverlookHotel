@@ -1,5 +1,7 @@
 package com.toh.database.entity;
 
+import com.toh.database.core.BaseEntity;
+
 public class Facility extends BaseEntity {
     private String name;
     private String description;
