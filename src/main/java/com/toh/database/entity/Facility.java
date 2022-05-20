@@ -1,9 +1,11 @@
 package com.toh.database.entity;
 
-public class Facility {
+import com.toh.database.core.BaseEntity;
+
+public class Facility extends BaseEntity {
     private String name;
     private String description;
-    private double price;
+    private Double price;
 
     public String getName() {
         return name;
@@ -21,11 +23,11 @@ public class Facility {
         this.description = description;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

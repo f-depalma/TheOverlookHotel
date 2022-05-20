@@ -1,10 +1,13 @@
 package com.toh.database.entity;
 
+import com.toh.database.core.BaseEntity;
+import com.toh.database.core.MappedList;
+
 import java.util.ArrayList;
 
-public class RoomType {
+public class RoomType extends BaseEntity {
     private String name;
-    private ArrayList<Facility> facilities;
+    private MappedList<Facility> facilities;
 
     public String getName() {
         return name;
@@ -15,10 +18,10 @@ public class RoomType {
     }
 
     public ArrayList<Facility> getFacilities() {
-        return facilities;
+        return facilities.getValue();
     }
 
     public void setFacilities(ArrayList<Facility> facilities) {
-        this.facilities = facilities;
+        this.facilities.setValue(facilities);
     }
 }

@@ -1,31 +1,34 @@
 package com.toh.database.entity;
 
-public class Checkout {
-    private Booking booking;
-    private double price;
-    private int discount;
+import com.toh.database.core.BaseEntity;
+import com.toh.database.core.MappedField;
+
+public class Checkout extends BaseEntity {
+    private MappedField<Booking> booking;
+    private Double price;
+    private Integer discount;
 
     public Booking getBooking() {
-        return booking;
+        return booking.getValue();
     }
 
     public void setBooking(Booking booking) {
-        this.booking = booking;
+        this.booking.setValue(booking);
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 }

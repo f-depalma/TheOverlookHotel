@@ -1,5 +1,12 @@
 package com.toh.theoverlookhotel;
 
+import com.toh.database.entity.Booking;
+import com.toh.database.entity.Date;
+import com.toh.database.entity.Facility;
+import com.toh.database.entity.Guest;
+import com.toh.database.repository.BookingRepository;
+import com.toh.database.repository.FacilityRepository;
+import com.toh.database.repository.GuestRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class HelloApplication extends Application {
 
@@ -42,6 +50,18 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        for (Booking b : BookingRepository.get().getAll()) {
+            System.out.println(BookingRepository.get().getConnector().ObjToJson(b));
+        }
+
+        for (Facility b : FacilityRepository.get().getAll()) {
+            System.out.println(FacilityRepository.get().getConnector().ObjToJson(b));
+        }
+
+        for (Guest b : GuestRepository.get().getAll()) {
+            System.out.println(GuestRepository.get().getConnector().ObjToJson(b));
+        }
+
+        //launch();
     }
 }
