@@ -1,7 +1,6 @@
 package com.toh.database.repository;
 
 import com.toh.database.core.Repository;
-import com.toh.database.entity.Booking;
 import com.toh.database.entity.Checkin;
 
 

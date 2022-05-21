@@ -29,8 +29,8 @@ public class HelloApplication extends Application {
         //Booking b = BookingRepository.get().findById(1);
         //b.setArriveHour(11);
         //BookingRepository.get().save(b);
-        Checkin c = new Checkin();
-        CheckinRepository.get().save(c);
+        //Checkin c = new Checkin();
+        //CheckinRepository.get().save(c);
         //launch();
     }
 }
