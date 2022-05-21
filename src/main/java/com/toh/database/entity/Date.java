@@ -5,6 +5,15 @@ public class Date {
     private int month;
     private int year;
 
+
+    public Date() {}
+
+    public Date(int day, int month, int year) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
     public void set(String date) {
         String[] splitted = date.split("/");
         day = Integer.parseInt(splitted[0]);

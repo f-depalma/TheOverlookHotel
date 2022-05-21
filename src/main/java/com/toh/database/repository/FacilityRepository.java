@@ -4,7 +4,7 @@ import com.toh.database.core.Repository;
 import com.toh.database.entity.Facility;
 
 
-public class FacilityRepository{
+public class FacilityRepository {
     private static Repository<Facility> instance;
 
     private FacilityRepository() {};

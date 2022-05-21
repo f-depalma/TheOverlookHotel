@@ -1,9 +1,33 @@
 [
   {
     "id": 1,
-    "facilities": [1, 2],
+    "facilities": [
+      1,
+      2
+    ],
     "arriveHour": 10,
     "arrive": "10/05/2022",
     "guest": 1
+  },
+  {
+    "id": 2,
+    "room": null,
+    "guest": null,
+    "arrive": null,
+    "arriveHour": null,
+    "departure": null,
+    "facilities": []
+  },
+  {
+    "id": 3,
+    "room": null,
+    "guest": null,
+    "arrive": null,
+    "arriveHour": null,
+    "departure": null,
+    "facilities": [
+      1,
+      2
+    ]
   }
 ]

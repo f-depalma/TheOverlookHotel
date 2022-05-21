@@ -3,10 +3,8 @@ package com.toh.theoverlookhotel;
 import com.toh.database.entity.Booking;
 import com.toh.database.entity.Date;
 import com.toh.database.entity.Facility;
-import com.toh.database.entity.Guest;
 import com.toh.database.repository.BookingRepository;
 import com.toh.database.repository.FacilityRepository;
-import com.toh.database.repository.GuestRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,18 +24,13 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        for (Booking b : BookingRepository.get().getAll()) {
-            System.out.println(BookingRepository.get().getConnector().ObjToJson(b));
-        }
-
-        for (Facility b : FacilityRepository.get().getAll()) {
-            System.out.println(FacilityRepository.get().getConnector().ObjToJson(b));
-        }
-
-        for (Guest b : GuestRepository.get().getAll()) {
-            System.out.println(GuestRepository.get().getConnector().ObjToJson(b));
-        }
-
+        Booking b = new Booking();
+        //b.setArrive(new Date(10, 10 ,10));
+        BookingRepository.get().save(b);
+        Booking b1 = new Booking();
+        b1.setFacilities(FacilityRepository.get().getAll());
+        BookingRepository.get().save(b1);
+        System.out.println(BookingRepository.get().findById(1).getFacilities().stream().map(f -> f.getName()).collect(Collectors.toList()));
         //launch();
     }
 }
