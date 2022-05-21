@@ -2,10 +2,8 @@ package com.toh.database.core;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 
 public class Repository<T extends BaseEntity> {
     private Connector<T> connector;
@@ -26,17 +24,16 @@ public class Repository<T extends BaseEntity> {
 
 
     public void save(T entity) {
-        int index = IntStream.range(0, data.size())
-                .filter(i -> data.get(i).getId() == entity.getId())
-                .findFirst()
-                .orElse(-1);
-
-        if (index != -1) {
+        if (entity.getId() != null) {
             data.removeIf(f -> f.getId() == entity.getId());
-            connector.update(index, entity);
+            connector.update(entity);
         } else {
-            int maxId = data.stream().max(Comparator.comparing(BaseEntity::getId))
-                    .orElseThrow(NoSuchElementException::new).getId();
+            int maxId;
+            try {
+                maxId = data.stream().max(Comparator.comparing(BaseEntity::getId)).orElseThrow().getId();
+            } catch (NoSuchElementException e) {
+                maxId = 0;
+            }
             entity.setId(maxId + 1);
             data.add(entity);
             connector.add(entity);

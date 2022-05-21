@@ -6,17 +6,17 @@ public class MappedField<T extends BaseEntity> {
 
     private Integer id;
     private T value;
-    private Class<T> clazz;
+    private Class<T> type;
 
-    public MappedField(Class<T> clazz) {
-        this.clazz = clazz;
+    public MappedField(Class<T> type) {
+        this.type = type;
     }
 
     public T getValue() {
         if (value == null) {
             Repository<T> repository = null;
             try {
-                repository = (Repository<T>) Class.forName(clazz.getName()+"Repository").getMethod("get").invoke(null);
+                repository = (Repository<T>) Class.forName(type.getName()+"Repository").getMethod("get").invoke(null);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

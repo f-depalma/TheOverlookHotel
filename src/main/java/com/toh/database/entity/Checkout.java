@@ -4,7 +4,7 @@ import com.toh.database.core.BaseEntity;
 import com.toh.database.core.MappedField;
 
 public class Checkout extends BaseEntity {
-    private MappedField<Booking> booking;
+    private MappedField<Booking> booking = new MappedField<>(Booking.class);
     private Double price;
     private Integer discount;
 

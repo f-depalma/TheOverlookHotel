@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class RoomType extends BaseEntity {
     private String name;
-    private MappedList<Facility> facilities;
+    private MappedList<Facility> facilities = new MappedList<>(Facility.class);
 
     public String getName() {
         return name;

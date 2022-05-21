@@ -5,7 +5,7 @@ import com.toh.database.core.MappedField;
 
 public class Room extends BaseEntity {
     private String number;
-    private MappedField<RoomType> type;
+    private MappedField<RoomType> type = new MappedField<>(RoomType.class);
     private Integer beds;
     private Boolean smoking;
     private Double price;

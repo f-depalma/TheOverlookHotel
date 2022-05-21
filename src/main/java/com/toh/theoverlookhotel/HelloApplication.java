@@ -1,9 +1,11 @@
 package com.toh.theoverlookhotel;
 
 import com.toh.database.entity.Booking;
+import com.toh.database.entity.Checkin;
 import com.toh.database.entity.Date;
 import com.toh.database.entity.Facility;
 import com.toh.database.repository.BookingRepository;
+import com.toh.database.repository.CheckinRepository;
 import com.toh.database.repository.FacilityRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,13 +26,11 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        Booking b = new Booking();
-        //b.setArrive(new Date(10, 10 ,10));
-        BookingRepository.get().save(b);
-        Booking b1 = new Booking();
-        b1.setFacilities(FacilityRepository.get().getAll());
-        BookingRepository.get().save(b1);
-        System.out.println(BookingRepository.get().findById(1).getFacilities().stream().map(f -> f.getName()).collect(Collectors.toList()));
+        //Booking b = BookingRepository.get().findById(1);
+        //b.setArriveHour(11);
+        //BookingRepository.get().save(b);
+        Checkin c = new Checkin();
+        CheckinRepository.get().save(c);
         //launch();
     }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Checkin extends BaseEntity {
     private MappedList<Guest> guests = new MappedList<>(Guest.class);
-    private MappedField<Booking> booking;
+    private MappedField<Booking> booking = new MappedField<>(Booking.class);
 
     public ArrayList<Guest> getGuests() {
         return guests.getValue();

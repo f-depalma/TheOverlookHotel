@@ -33,12 +33,14 @@ public class Connector<T extends BaseEntity> {
         Scanner read = openFile(fileName);
         T obj = null;
         String str = "";
-        read.nextLine();
+        if (read.hasNext()) {
+            read.nextLine();
+        }
 
         while (read.hasNext()) {
             str = getNextLine(read);
 
-            if (str.contains("]")) {
+            if (str.equals("]")) {
                 read.close();
                 break;
             } else if (str.equals("{")) {
@@ -51,13 +53,14 @@ public class Connector<T extends BaseEntity> {
                 list.add(obj);
             } else if (str.contains("[")) {
                 String field = str.split(":")[0];
-
                 ArrayList<Integer> idList = new ArrayList<>();
 
-                str = getNextLine(read);
-                while (!str.equals("]")) {
-                    idList.add(Integer.parseInt(str));
+                if (!str.contains("]")) {
                     str = getNextLine(read);
+                    while (!str.equals("]")) {
+                        idList.add(Integer.parseInt(str));
+                        str = getNextLine(read);
+                    }
                 }
 
                 try {
@@ -149,14 +152,17 @@ public class Connector<T extends BaseEntity> {
         return "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
-    public void update(int index, T entity) {
+    public void update(T entity) {
         try {
-            RandomAccessFile file = new RandomAccessFile(fileName, "rw");
-            int lines = 1 + index * (2 + fields.size());
-            for (int i = 0; i < lines; i++) {
-                file.readLine();
-            }
-            file.writeChars(objToJson(entity));
+            RandomAccessFile file = new RandomAccessFile(filePath + fileName, "rw");
+            int i = 0;
+            String str = "";
+            do {
+                i += str.length() + 1;
+                str = file.readLine();
+            } while (!str.equals("    \"id\": " + entity.getId() + ","));
+            file.seek(i - 5);
+            file.writeBytes(objToJson(entity));
             file.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -166,8 +172,13 @@ public class Connector<T extends BaseEntity> {
     public void add(T entity) {
         try {
             RandomAccessFile file = new RandomAccessFile(filePath + fileName, "rw");
-            file.seek(file.length() - 2);
-            file.writeBytes(",\n");
+
+            if (file.length() > 2) {
+                file.seek(file.length() - 2);
+                file.writeBytes(",\n");
+            } else {
+                file.writeBytes("[\n");
+            }
             file.writeBytes(objToJson(entity));
             file.writeBytes("\n]");
             file.close();
