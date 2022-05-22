@@ -173,7 +173,7 @@ public class Connector<T extends BaseEntity> {
 
                 if (field.getType().equals(MappedList.class)) {
                     ArrayList<Integer> ids = (ArrayList<Integer>) MappedList.class.getMethod("getIds").invoke(value);
-                    if (ids.size() > 0) {
+                    if (ids != null && ids.size() > 0) {
                         json += "    \"" + field.getName() + "\": [\n";
 
                         for (int i = 0; i < ids.size(); i++) {

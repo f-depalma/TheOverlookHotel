@@ -20,27 +20,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        Booking b = BookingRepository.execute().findById(1);
-        b.setArriveHour(0);
-        BookingRepository.execute().saveAndFlush(b);
-        Checkin c = CheckinRepository.execute().findById(1);
-        c.setBooking(b);
-        CheckinRepository.execute().saveAndFlush(c);
-        Checkout co = CheckoutRepository.execute().findById(1);
-        co.setPrice(20.0);
-        CheckoutRepository.execute().saveAndFlush(co);
-        Facility f = FacilityRepository.execute().findById(1);
-        f.setDescription("abc");
-        FacilityRepository.execute().saveAndFlush(f);
-        Guest g = GuestRepository.execute().findById(1);
-        g.setBirthday("10/10/10");
-        GuestRepository.execute().saveAndFlush(g);
-        Room r = RoomRepository.execute().findById(1);
-        r.setBeds(2);
-        RoomRepository.execute().saveAndFlush(r);
-        RoomType t = RoomTypeRepository.execute().findById(1);
-        t.setName("abc");
-        RoomTypeRepository.execute().saveAndFlush(t);
-        //launch();
+        launch();
     }
 }

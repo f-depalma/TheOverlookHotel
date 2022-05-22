@@ -1,7 +1,6 @@
 package com.toh.database.core;
 
 public class MappedEntity<T extends BaseEntity> extends MappedField<T> {
-    private T value;
     private Integer id;
 
     public MappedEntity(Class<T> type) {
@@ -9,14 +8,17 @@ public class MappedEntity<T extends BaseEntity> extends MappedField<T> {
     }
 
     public T getValue() {
-        if (value == null) {
-            value = findRepository().findById(id);
+        if (id != null) {
+            T value = findRepository().findById(id);
+            if (value == null) {
+                id = null;
+            }
+            return value;
         }
-        return value;
+        return null;
     }
 
     public void setValue(T value) {
-        this.value = value;
         this.id = value.getId();
     }
 

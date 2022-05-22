@@ -13,7 +13,7 @@ public class MappedField<T extends BaseEntity> {
                             .replace(".core", ".repository.") +
                             type.getSimpleName() + "Repository";
 
-            repository = (Repository<T>) Class.forName(repositoryName).getMethod("get").invoke(null);
+            repository = (Repository<T>) Class.forName(repositoryName).getMethod("execute").invoke(null);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
             e.printStackTrace();
         }
