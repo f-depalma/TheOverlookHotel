@@ -2,10 +2,16 @@ package com.toh.database.core;
 
 import com.toh.database.entity.Date;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,110 +33,110 @@ public class Connector<T extends BaseEntity> {
 
     public ArrayList<T> load() {
         ArrayList<T> list = new ArrayList<>();
-        Scanner read = openFile(fileName);
-        T obj = null;
-        String str = "";
-        if (read.hasNext()) {
-            read.nextLine();
-        }
 
-        while (read.hasNext()) {
-            str = getNextLine(read);
-
-            if (str.equals("]")) {
-                read.close();
-                break;
-            } else if (str.equals("{")) {
-                try {
-                    obj = type.getConstructor().newInstance();
-                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            } else if (str.contains("}")) {
-                list.add(obj);
-            } else if (str.contains("[")) {
-                String field = str.split(":")[0];
-                ArrayList<Integer> idList = new ArrayList<>();
-
-                if (!str.contains("]")) {
-                    str = getNextLine(read);
-                    while (!str.equals("]")) {
-                        idList.add(Integer.parseInt(str));
-                        str = getNextLine(read);
-                    }
-                }
-
-                try {
-                    Field mappedList = type.getDeclaredField(field);
-                    mappedList.setAccessible(true);
-                    MappedList.class.getMethod("setIds", ArrayList.class)
-                            .invoke(mappedList.get(obj), idList);
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                String[] splitted = str.split(":");
-                String field = splitted[0];
-                String value = splitted[1].trim();
-
-                if (!value.equals("null")) {
-                    Class parClass = null;
-
-                    try {
-                        parClass = type.getDeclaredField(splitted[0]).getType();
-                    } catch (NoSuchFieldException e) {
-                        try {
-                            parClass = BaseEntity.class.getDeclaredField(splitted[0]).getType();
-                        } catch (NoSuchFieldException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-
-                    try {
-                        if (Integer.class.equals(parClass)) {
-                            type.getMethod(getMethodName(field), parClass)
-                                    .invoke(obj, Integer.valueOf(value));
-                        } else if (Double.class.equals(parClass)) {
-                            type.getMethod(getMethodName(field), parClass)
-                                    .invoke(obj, Double.valueOf(value));
-                        } else if (Boolean.class.equals(parClass)) {
-                            type.getMethod(getMethodName(field), parClass)
-                                    .invoke(obj, Boolean.valueOf(value));
-                        } else if (MappedEntity.class.equals(parClass)) {
-                            Field mappedField = type.getDeclaredField(field);
-                            mappedField.setAccessible(true);
-                            MappedEntity.class.getMethod("setId", int.class)
-                                    .invoke(mappedField.get(obj), Integer.valueOf(value));
-                        } else if (Date.class.equals(parClass)) {
-                            Field mappedField = type.getDeclaredField(field);
-                            mappedField.setAccessible(true);
-                            Date.class.getMethod("set", String.class)
-                                    .invoke(mappedField.get(obj), value);
-                        } else {
-                            type.getMethod(getMethodName(field), parClass)
-                                    .invoke(obj, value);
-                        }
-                    } catch (IllegalAccessException | InvocationTargetException | NoSuchFieldException | NoSuchMethodException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-        }
-        return list;
-    }
-
-    private static Scanner openFile(String fileName) {
-        Scanner read = null;
         try {
             FileInputStream fileIn = new FileInputStream(filePath + fileName);
-            read = new Scanner(fileIn);
+            Scanner read = new Scanner(fileIn);
+            T obj = null;
+            String str = "";
+            if (read.hasNext()) {
+                read.nextLine();
+            }
+
+            while (read.hasNext()) {
+                str = getNextLine(read);
+
+                if (str.equals("]")) {
+                    read.close();
+                    break;
+                } else if (str.equals("{")) {
+                    try {
+                        obj = type.getConstructor().newInstance();
+                    } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                } else if (str.contains("}")) {
+                    list.add(obj);
+                } else if (str.contains("[")) {
+                    String field = str.split(":")[0];
+                    ArrayList<Integer> idList = new ArrayList<>();
+
+                    if (!str.contains("]")) {
+                        str = getNextLine(read);
+                        while (!str.equals("]")) {
+                            idList.add(Integer.parseInt(str));
+                            str = getNextLine(read);
+                        }
+                    }
+
+                    try {
+                        Field mappedList = type.getDeclaredField(field);
+                        mappedList.setAccessible(true);
+                        MappedList.class.getMethod("setIds", ArrayList.class)
+                                .invoke(mappedList.get(obj), idList);
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
+                        e.printStackTrace();
+                        continue;
+                    }
+
+                } else {
+                    String[] splitted = str.split(":");
+                    String field = splitted[0];
+                    String value = splitted[1].trim();
+
+                    if (!value.equals("null")) {
+                        Class parClass = null;
+
+                        try {
+                            parClass = type.getDeclaredField(splitted[0]).getType();
+                        } catch (NoSuchFieldException e) {
+                            try {
+                                parClass = BaseEntity.class.getDeclaredField(splitted[0]).getType();
+                            } catch (NoSuchFieldException ex) {
+                                ex.printStackTrace();
+                                continue;
+                            }
+                        }
+
+                        try {
+                            if (Integer.class.equals(parClass)) {
+                                type.getMethod(getMethodName(field), parClass)
+                                        .invoke(obj, Integer.valueOf(value));
+                            } else if (Double.class.equals(parClass)) {
+                                type.getMethod(getMethodName(field), parClass)
+                                        .invoke(obj, Double.valueOf(value));
+                            } else if (Boolean.class.equals(parClass)) {
+                                type.getMethod(getMethodName(field), parClass)
+                                        .invoke(obj, Boolean.valueOf(value));
+                            } else if (MappedEntity.class.equals(parClass)) {
+                                Field mappedField = type.getDeclaredField(field);
+                                mappedField.setAccessible(true);
+                                MappedEntity.class.getMethod("setId", int.class)
+                                        .invoke(mappedField.get(obj), Integer.valueOf(value));
+                            } else if (Date.class.equals(parClass)) {
+                                Field mappedField = type.getDeclaredField(field);
+                                mappedField.setAccessible(true);
+                                Date.class.getMethod("set", String.class)
+                                        .invoke(mappedField.get(obj), value);
+                            } else {
+                                type.getMethod(getMethodName(field), parClass)
+                                        .invoke(obj, value);
+                            }
+                        } catch (IllegalAccessException | InvocationTargetException | NoSuchFieldException | NoSuchMethodException e) {
+                            e.printStackTrace();
+                            continue;
+                        }
+                    }
+                }
+
+            }
         } catch (FileNotFoundException e) {
             System.out.println("File not found, or could not be opened");
             System.exit(1);
         }
-        return read;
+
+        return list;
     }
 
     private String getNextLine(Scanner read) {
@@ -144,6 +150,7 @@ public class Connector<T extends BaseEntity> {
     public void flush(ArrayList<T> list) {
         if (list.size() > 0) {
             FileOutputStream fileOut = null;
+
             try {
                 fileOut = new FileOutputStream(filePath + fileName);
                 PrintWriter write = new PrintWriter(fileOut);
@@ -202,6 +209,7 @@ public class Connector<T extends BaseEntity> {
                 }
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
+                continue;
             }
         }
         json = json.substring(0, json.length() - 2) + "\n  }";

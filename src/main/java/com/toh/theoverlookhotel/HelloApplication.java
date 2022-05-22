@@ -1,7 +1,5 @@
 package com.toh.theoverlookhotel;
 
-import com.toh.database.entity.*;
-import com.toh.database.repository.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

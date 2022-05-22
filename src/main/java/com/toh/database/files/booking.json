@@ -4,6 +4,7 @@
     "arrive": "10/5/2022",
     "arriveHour": 10,
     "facilities": [
+      1,
       2
     ]
   }

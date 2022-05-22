@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 public class MappedList<T extends BaseEntity> extends MappedField<T> {
     private ArrayList<Integer> ids;
 
-    public MappedList(Class<T> clazz) {
-        this.type = clazz;
+    public MappedList(Class<T> type) {
+        super(type);
     }
 
     public ArrayList<T> getValue() {

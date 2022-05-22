@@ -4,7 +4,7 @@ public class MappedEntity<T extends BaseEntity> extends MappedField<T> {
     private Integer id;
 
     public MappedEntity(Class<T> type) {
-        this.type = type;
+        super(type);
     }
 
     public T getValue() {

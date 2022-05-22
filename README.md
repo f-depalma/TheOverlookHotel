@@ -11,7 +11,7 @@
 
 <h6>SAVE:</h6>
 <p>
-    <i>if the entity contain an already existing ID it updates else it adds the entity</i>
+    <i>if the entity contain an already existing ID it updates else it adds the entity</i><br>
     <code>BookingRepository.execute().save(new Booking())</code><br>
     <i>use it to save the entities on the file</i><br>
     <code>BookingRepository.execute().flush()</code><br>
