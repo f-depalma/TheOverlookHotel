@@ -4,14 +4,16 @@ import com.toh.database.core.Repository;
 import com.toh.database.entity.Checkin;
 
 
-public class CheckinRepository {
-    private static Repository<Checkin> instance;
+public class CheckinRepository extends Repository<Checkin> {
+    private static CheckinRepository instance;
 
-    private CheckinRepository() {};
+    private CheckinRepository() {
+        super(Checkin.class, "checkin.json");
+    }
 
-    public static Repository<Checkin> get() {
+    public static CheckinRepository get() {
         if (instance == null) {
-            instance = new Repository<>(Checkin.class, "checkin.json");
+            instance = new CheckinRepository();
         }
         return instance;
     }

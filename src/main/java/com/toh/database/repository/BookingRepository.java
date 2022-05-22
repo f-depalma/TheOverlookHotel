@@ -4,14 +4,16 @@ import com.toh.database.core.Repository;
 import com.toh.database.entity.Booking;
 
 
-public class BookingRepository {
-    private static Repository<Booking> instance;
+public class BookingRepository extends Repository<Booking> {
+    private static BookingRepository instance;
 
-    private BookingRepository() {};
+    private BookingRepository() {
+        super(Booking.class, "booking.json");
+    }
 
-    public static Repository<Booking> get() {
+    public static BookingRepository get() {
         if (instance == null) {
-            instance = new Repository<>(Booking.class, "booking.json");
+            instance = new BookingRepository();
         }
         return instance;
     }

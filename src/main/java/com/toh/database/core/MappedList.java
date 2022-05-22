@@ -1,14 +1,11 @@
 package com.toh.database.core;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class MappedList<T extends BaseEntity> {
-
+public class MappedList<T extends BaseEntity> extends MappedField<T> {
     private ArrayList<Integer> ids;
     private ArrayList<T> value = null;
-    private Class<T> type;
 
     public MappedList(Class<T> clazz) {
         this.type = clazz;
@@ -16,19 +13,9 @@ public class MappedList<T extends BaseEntity> {
 
     public ArrayList<T> getValue() {
         if (value == null) {
-            Repository<T> repository = null;
-
-            try {
-                String repositoryName =
-                        MappedList.class.getPackageName()
-                                .replace(".core", ".repository.") +
-                        type.getSimpleName() + "Repository";
-
-                repository = (Repository<T>) Class.forName(repositoryName).getMethod("get").invoke(null);
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
             value = new ArrayList<>();
+            Repository<T> repository = findRepository();
+
             for (int id : ids) {
                 T entity = repository.findById(id);
                 value.add(entity);
@@ -50,7 +37,9 @@ public class MappedList<T extends BaseEntity> {
         return this.ids;
     }
 
-    public void add(T entity) {
+    public void save(T entity) {
+        this.ids.removeIf(id -> id == entity.getId());
+        this.value.removeIf(e -> e.getId() == entity.getId());
         this.ids.add(entity.getId());
         this.value.add(entity);
     }

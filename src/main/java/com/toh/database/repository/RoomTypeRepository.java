@@ -1,18 +1,19 @@
 package com.toh.database.repository;
 
 import com.toh.database.core.Repository;
-import com.toh.database.entity.Booking;
 import com.toh.database.entity.RoomType;
 
 
-public class RoomTypeRepository {
-    private static Repository<RoomType> instance;
+public class RoomTypeRepository extends Repository<RoomType> {
+    private static RoomTypeRepository instance;
 
-    private RoomTypeRepository() {};
+    private RoomTypeRepository() {
+        super(RoomType.class, "room_type.json");
+    }
 
-    public static Repository<RoomType> get() {
+    public static RoomTypeRepository get() {
         if (instance == null) {
-            instance = new Repository<>(RoomType.class, "room_type.json");
+            instance = new RoomTypeRepository();
         }
         return instance;
     }

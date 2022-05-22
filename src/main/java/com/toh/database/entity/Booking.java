@@ -1,14 +1,14 @@
 package com.toh.database.entity;
 
 import com.toh.database.core.BaseEntity;
-import com.toh.database.core.MappedField;
+import com.toh.database.core.MappedEntity;
 import com.toh.database.core.MappedList;
 
 import java.util.ArrayList;
 
 public class Booking extends BaseEntity {
-    private MappedField<Room> room = new MappedField<>(Room.class);
-    private MappedField<Guest> guest = new MappedField<>(Guest.class);
+    private MappedEntity<Room> room = new MappedEntity<>(Room.class);
+    private MappedEntity<Guest> guest = new MappedEntity<>(Guest.class);
     private Date arrive = new Date();
     private Integer arriveHour;
     private Date departure = new Date();
@@ -60,5 +60,13 @@ public class Booking extends BaseEntity {
 
     public void setFacilities(ArrayList<Facility> facilities) {
         this.facilities.setValue(facilities);
+    }
+
+    public void saveFacility(Facility facility) {
+        this.facilities.save(facility);
+    }
+
+    public void deleteFacility(Integer id) {
+        this.facilities.remove(id);
     }
 }

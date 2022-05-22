@@ -4,14 +4,16 @@ import com.toh.database.core.Repository;
 import com.toh.database.entity.Facility;
 
 
-public class FacilityRepository {
-    private static Repository<Facility> instance;
+public class FacilityRepository extends Repository<Facility> {
+    private static FacilityRepository instance;
 
-    private FacilityRepository() {};
+    private FacilityRepository() {
+        super(Facility.class, "facility.json");
+    }
 
-    public static Repository<Facility> get() {
+    public static FacilityRepository get() {
         if (instance == null) {
-            instance = new Repository<>(Facility.class, "facility.json");
+            instance = new FacilityRepository();
         }
         return instance;
     }

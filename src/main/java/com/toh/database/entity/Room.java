@@ -1,11 +1,11 @@
 package com.toh.database.entity;
 
 import com.toh.database.core.BaseEntity;
-import com.toh.database.core.MappedField;
+import com.toh.database.core.MappedEntity;
 
 public class Room extends BaseEntity {
     private String number;
-    private MappedField<RoomType> type = new MappedField<>(RoomType.class);
+    private MappedEntity<RoomType> type = new MappedEntity<>(RoomType.class);
     private Integer beds;
     private Boolean smoking;
     private Double price;

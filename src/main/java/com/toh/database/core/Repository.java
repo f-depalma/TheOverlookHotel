@@ -6,11 +6,11 @@ import java.util.NoSuchElementException;
 
 
 public class Repository<T extends BaseEntity> {
-    private Connector<T> connector;
-    private ArrayList<T> data;
+    protected Connector<T> connector;
+    protected ArrayList<T> data;
 
-    public Repository(Class<T> clazz, String fileName) {
-        connector = new Connector<>(clazz, fileName);
+    protected Repository(Class<T> type, String fileName) {
+        connector = new Connector<>(type, fileName);
         data = connector.load();
     }
 
@@ -22,9 +22,8 @@ public class Repository<T extends BaseEntity> {
         return data;
     }
 
-
     public void save(T entity) {
-        if (entity.getId() != null) {
+        if (data.stream().anyMatch(d -> d.getId() == entity.getId())) {
             data.removeIf(f -> f.getId() == entity.getId());
             connector.update(entity);
         } else {

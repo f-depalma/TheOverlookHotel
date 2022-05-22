@@ -24,4 +24,12 @@ public class RoomType extends BaseEntity {
     public void setFacilities(ArrayList<Facility> facilities) {
         this.facilities.setValue(facilities);
     }
+
+    public void saveFacility(Facility facility) {
+        this.facilities.save(facility);
+    }
+
+    public void deleteFacility(Integer id) {
+        this.facilities.remove(id);
+    }
 }

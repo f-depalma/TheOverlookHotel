@@ -1,6 +1,18 @@
 [
   {
     "id": 1,
-    "name": "Francesco De Palma"
+    "name": "Francesco De Palma",
+    "birthday": null,
+    "homeAddress": null,
+    "phoneNumber": null,
+    "nationality": null
+  },
+  {
+    "id": 2,
+    "name": null,
+    "birthday": null,
+    "homeAddress": null,
+    "phoneNumber": null,
+    "nationality": null
   }
 ]

@@ -1,10 +1,10 @@
 package com.toh.database.entity;
 
 import com.toh.database.core.BaseEntity;
-import com.toh.database.core.MappedField;
+import com.toh.database.core.MappedEntity;
 
 public class Checkout extends BaseEntity {
-    private MappedField<Booking> booking = new MappedField<>(Booking.class);
+    private MappedEntity<Booking> booking = new MappedEntity<>(Booking.class);
     private Double price;
     private Integer discount;
 

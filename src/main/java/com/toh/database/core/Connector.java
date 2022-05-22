@@ -91,36 +91,28 @@ public class Connector<T extends BaseEntity> {
                     }
 
                     try {
-                        switch (parClass.getSimpleName()) {
-                            case "Integer":
-                                type.getMethod(getMethodName(field), parClass)
-                                        .invoke(obj, Integer.valueOf(value));
-                                break;
-                            case "Double":
-                                type.getMethod(getMethodName(field), parClass)
-                                        .invoke(obj, Double.valueOf(value));
-                                break;
-                            case "Boolean":
-                                type.getMethod(getMethodName(field), parClass)
-                                        .invoke(obj, Boolean.valueOf(value));
-                                break;
-                            case "MappedField": {
-                                Field mappedField = type.getDeclaredField(field);
-                                mappedField.setAccessible(true);
-                                MappedField.class.getMethod("setId", int.class)
-                                        .invoke(mappedField.get(obj), Integer.valueOf(value));
-                                break;
-                            }
-                            case "Date": {
-                                Field mappedField = type.getDeclaredField(field);
-                                mappedField.setAccessible(true);
-                                Date.class.getMethod("set", String.class)
-                                        .invoke(mappedField.get(obj), value);
-                                break;
-                            }
-                            default:
-                                type.getMethod(getMethodName(field), parClass)
-                                        .invoke(obj, value);
+                        if (Integer.class.equals(parClass)) {
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, Integer.valueOf(value));
+                        } else if (Double.class.equals(parClass)) {
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, Double.valueOf(value));
+                        } else if (Boolean.class.equals(parClass)) {
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, Boolean.valueOf(value));
+                        } else if (MappedEntity.class.equals(parClass)) {
+                            Field mappedField = type.getDeclaredField(field);
+                            mappedField.setAccessible(true);
+                            MappedEntity.class.getMethod("setId", int.class)
+                                    .invoke(mappedField.get(obj), Integer.valueOf(value));
+                        } else if (Date.class.equals(parClass)) {
+                            Field mappedField = type.getDeclaredField(field);
+                            mappedField.setAccessible(true);
+                            Date.class.getMethod("set", String.class)
+                                    .invoke(mappedField.get(obj), value);
+                        } else {
+                            type.getMethod(getMethodName(field), parClass)
+                                    .invoke(obj, value);
                         }
                     } catch (IllegalAccessException | InvocationTargetException | NoSuchFieldException | NoSuchMethodException e) {
                         e.printStackTrace();
@@ -206,8 +198,8 @@ public class Connector<T extends BaseEntity> {
                         json += "    ";
                     }
                     json += "],\n";
-                } else if (field.getType().equals(MappedField.class)) {
-                    json += "    \"" + field.getName() + "\": " + MappedField.class.getMethod("getId").invoke(value) + ",\n";
+                } else if (field.getType().equals(MappedEntity.class)) {
+                    json += "    \"" + field.getName() + "\": " + MappedEntity.class.getMethod("getId").invoke(value) + ",\n";
                 } else {
                     json += "    \"" + field.getName() + "\": ";
                     if (!Number.class.isAssignableFrom(field.getType()) && value != null && value.toString() != null) {
@@ -224,4 +216,3 @@ public class Connector<T extends BaseEntity> {
         return json;
     }
 }
-

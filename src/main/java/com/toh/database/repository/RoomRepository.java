@@ -4,14 +4,16 @@ import com.toh.database.core.Repository;
 import com.toh.database.entity.Room;
 
 
-public class RoomRepository {
-    private static Repository<Room> instance;
+public class RoomRepository extends Repository<Room> {
+    private static RoomRepository instance;
 
-    private RoomRepository() {};
+    private RoomRepository() {
+        super(Room.class, "room.json");
+    }
 
-    public static Repository<Room> get() {
+    public static RoomRepository get() {
         if (instance == null) {
-            instance = new Repository<>(Room.class, "room.json");
+            instance = new RoomRepository();
         }
         return instance;
     }

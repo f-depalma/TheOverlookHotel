@@ -4,14 +4,16 @@ import com.toh.database.core.Repository;
 import com.toh.database.entity.Checkout;
 
 
-public class CheckoutRepository {
-    private static Repository<Checkout> instance;
+public class CheckoutRepository extends Repository<Checkout> {
+    private static CheckoutRepository instance;
 
-    private CheckoutRepository() {};
+    private CheckoutRepository() {
+        super(Checkout.class, "checkout.json");
+    }
 
-    public static Repository<Checkout> get() {
+    public static CheckoutRepository get() {
         if (instance == null) {
-            instance = new Repository<>(Checkout.class, "checkout.json");
+            instance = new CheckoutRepository();
         }
         return instance;
     }

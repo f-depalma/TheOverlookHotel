@@ -4,14 +4,16 @@ import com.toh.database.core.Repository;
 import com.toh.database.entity.Guest;
 
 
-public class GuestRepository {
-    private static Repository<Guest> instance;
+public class GuestRepository extends Repository<Guest> {
+    private static GuestRepository instance;
 
-    private GuestRepository() {};
+    private GuestRepository() {
+        super(Guest.class, "guest.json");
+    }
 
-    public static Repository<Guest> get() {
+    public static GuestRepository get() {
         if (instance == null) {
-            instance = new Repository<>(Guest.class, "guest.json");
+            instance = new GuestRepository();
         }
         return instance;
     }
