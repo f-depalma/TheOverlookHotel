@@ -1,7 +1,9 @@
 [
   {
+    "id": 2
+  },
+  {
     "id": 1,
-    "name": null,
-    "facilities": []
+    "name": "abc"
   }
 ]

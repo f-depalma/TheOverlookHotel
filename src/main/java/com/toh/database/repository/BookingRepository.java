@@ -11,7 +11,7 @@ public class BookingRepository extends Repository<Booking> {
         super(Booking.class, "booking.json");
     }
 
-    public static BookingRepository get() {
+    public static BookingRepository execute() {
         if (instance == null) {
             instance = new BookingRepository();
         }

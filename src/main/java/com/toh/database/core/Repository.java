@@ -23,19 +23,26 @@ public class Repository<T extends BaseEntity> {
     }
 
     public void save(T entity) {
-        if (data.stream().anyMatch(d -> d.getId() == entity.getId())) {
-            data.removeIf(f -> f.getId() == entity.getId());
-            connector.update(entity);
-        } else {
-            int maxId;
+        int maxId;
+
+        if (!data.removeIf(f -> f.getId() == entity.getId())) {
             try {
                 maxId = data.stream().max(Comparator.comparing(BaseEntity::getId)).orElseThrow().getId();
             } catch (NoSuchElementException e) {
                 maxId = 0;
             }
             entity.setId(maxId + 1);
-            data.add(entity);
-            connector.add(entity);
         }
+
+        data.add(entity);
+    }
+
+    public void flush(){
+        connector.flush(data);
+    }
+
+    public void saveAndFlush(T entity) {
+        save(entity);
+        flush();
     }
 }

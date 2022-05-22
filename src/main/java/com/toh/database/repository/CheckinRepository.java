@@ -11,7 +11,7 @@ public class CheckinRepository extends Repository<Checkin> {
         super(Checkin.class, "checkin.json");
     }
 
-    public static CheckinRepository get() {
+    public static CheckinRepository execute() {
         if (instance == null) {
             instance = new CheckinRepository();
         }

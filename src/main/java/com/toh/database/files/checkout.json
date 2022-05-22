@@ -1,8 +1,9 @@
 [
   {
+    "id": 2
+  },
+  {
     "id": 1,
-    "booking": null,
-    "price": null,
-    "discount": null
+    "price": 20.0
   }
 ]

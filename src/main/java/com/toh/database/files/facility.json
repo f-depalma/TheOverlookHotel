@@ -1,20 +1,13 @@
 [
   {
-    "id": 1,
-    "name": "a",
-    "description": null,
-    "price": 0.3
-  },
-  {
     "id": 2,
     "name": "b",
-    "description": null,
     "price": 2.1
   },
   {
-    "id": 3,
-    "name": null,
-    "description": null,
-    "price": null
+    "id": 1,
+    "name": "a",
+    "description": "abc",
+    "price": 0.3
   }
 ]

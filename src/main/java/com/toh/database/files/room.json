@@ -1,10 +1,9 @@
 [
   {
+    "id": 2
+  },
+  {
     "id": 1,
-    "number": null,
-    "type": null,
-    "beds": null,
-    "smoking": null,
-    "price": null
+    "beds": 2
   }
 ]

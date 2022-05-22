@@ -11,7 +11,7 @@ public class GuestRepository extends Repository<Guest> {
         super(Guest.class, "guest.json");
     }
 
-    public static GuestRepository get() {
+    public static GuestRepository execute() {
         if (instance == null) {
             instance = new GuestRepository();
         }

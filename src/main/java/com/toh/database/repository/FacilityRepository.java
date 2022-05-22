@@ -11,7 +11,7 @@ public class FacilityRepository extends Repository<Facility> {
         super(Facility.class, "facility.json");
     }
 
-    public static FacilityRepository get() {
+    public static FacilityRepository execute() {
         if (instance == null) {
             instance = new FacilityRepository();
         }

@@ -1,18 +1,10 @@
 [
   {
-    "id": 1,
-    "name": "Francesco De Palma",
-    "birthday": null,
-    "homeAddress": null,
-    "phoneNumber": null,
-    "nationality": null
+    "id": 2
   },
   {
-    "id": 2,
-    "name": null,
-    "birthday": null,
-    "homeAddress": null,
-    "phoneNumber": null,
-    "nationality": null
+    "id": 1,
+    "name": "Francesco De Palma",
+    "birthday": "10/10/10"
   }
 ]

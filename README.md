@@ -1,18 +1,21 @@
 # TheHoverlookHotel
 
-DATASOURCE
+<h3>Database</h3>
+<h6>GET:</h6>
+<p>
+    <i>return all the entities</i><br>
+    <code>BookingRepository.execute().getAll()</code><br>
+    <i>return the entity with the specified ID</i><br>
+    <code>BookingRepository.execute().findById(ID)</code>
+</p>
 
-How to use:
-  GET:
-  // return all the entities in the file
-  BookingRepository.get().getAll()
-  
-  // return the entity with the specified ID
-  BookingRepository.get().findById(ID)
-  
-  SAVE:
-  // if the entity contain an already existing ID it update the entity else it add
-  BookingRepositori.get().save(new Booking())
-  
-  Remenber to call the repository save method in order to update the edit on the file.
+<h6>SAVE:</h6>
+<p>
+    <i>if the entity contain an already existing ID it updates else it adds the entity</i>
+    <code>BookingRepository.execute().save(new Booking())</code><br>
+    <i>use it to save the entities on the file</i><br>
+    <code>BookingRepository.execute().flush()</code><br>
+    <i>it save and then flush</i><br>
+    <code>BookingRepository.execute().saveAndFlush(new Booking())</code>
+</p>
   

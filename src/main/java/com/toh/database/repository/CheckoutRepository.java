@@ -11,7 +11,7 @@ public class CheckoutRepository extends Repository<Checkout> {
         super(Checkout.class, "checkout.json");
     }
 
-    public static CheckoutRepository get() {
+    public static CheckoutRepository execute() {
         if (instance == null) {
             instance = new CheckoutRepository();
         }

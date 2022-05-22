@@ -11,7 +11,7 @@ public class RoomRepository extends Repository<Room> {
         super(Room.class, "room.json");
     }
 
-    public static RoomRepository get() {
+    public static RoomRepository execute() {
         if (instance == null) {
             instance = new RoomRepository();
         }
