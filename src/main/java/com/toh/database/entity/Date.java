@@ -5,6 +5,22 @@ public class Date {
     private int month;
     private int year;
 
+
+    public Date() {}
+
+    public Date(int day, int month, int year) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public void set(String date) {
+        String[] splitted = date.split("/");
+        day = Integer.parseInt(splitted[0]);
+        month = Integer.parseInt(splitted[1]);
+        year = Integer.parseInt(splitted[2]);
+    }
+
     public int getDay() {
         return day;
     }
@@ -27,5 +43,13 @@ public class Date {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        if (day != 0 && month != 0 && year != 0) {
+            return day + "/" + month + "/" + year;
+        }
+        return null;
     }
 }

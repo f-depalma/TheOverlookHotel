@@ -1,6 +1,8 @@
 package com.toh.database.entity;
 
-public class Guest {
+import com.toh.database.core.BaseEntity;
+
+public class Guest extends BaseEntity {
     private String name;
     private String birthday;
     private String homeAddress;
