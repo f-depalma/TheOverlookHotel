@@ -9,7 +9,8 @@ module com.toh.theoverlookhotel {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+  requires java.desktop;
 
-    opens com.toh.theoverlookhotel to javafx.fxml;
+  opens com.toh.theoverlookhotel to javafx.fxml;
     exports com.toh.theoverlookhotel;
 }
