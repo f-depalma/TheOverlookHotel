@@ -1,6 +1,9 @@
 package com.toh.database.core;
 
-import com.toh.database.entity.Date;
+import com.toh.database.core.Exceptions.EntityNotValidException;
+import com.toh.database.core.field.Date;
+import com.toh.database.core.field.MappedEntity;
+import com.toh.database.core.field.MappedList;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,25 +11,24 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Modifier;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 public class Connector<T extends BaseEntity> {
-    private Class<T> type;
-    private String fileName;
-    private List<Field> fields;
+    private final Class<T> type;
+    private final String fileName;
+    private final List<Field> fields;
     private static final String filePath = "./src/main/java/com/toh/database/files/";
 
-    public Connector(Class<T> clazz, String fileName) {
-        this.type = clazz;
+    public Connector(Class<T> type, String fileName) {
+        this.type = type;
         this.fileName = fileName;
         this.fields = Stream.concat(
-                        Arrays.stream(BaseEntity.class.getDeclaredFields()),
+                        Arrays.stream(BaseEntity.class.getDeclaredFields())
+                                .filter(f -> !Modifier.isStatic(f.getModifiers())),
                         Arrays.stream(type.getDeclaredFields()))
                 .collect(Collectors.toList());
     }
@@ -38,7 +40,7 @@ public class Connector<T extends BaseEntity> {
             FileInputStream fileIn = new FileInputStream(filePath + fileName);
             Scanner read = new Scanner(fileIn);
             T obj = null;
-            String str = "";
+            String str;
             if (read.hasNext()) {
                 read.nextLine();
             }
@@ -77,7 +79,6 @@ public class Connector<T extends BaseEntity> {
                                 .invoke(mappedList.get(obj), idList);
                     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
                         e.printStackTrace();
-                        continue;
                     }
 
                 } else {
@@ -86,7 +87,7 @@ public class Connector<T extends BaseEntity> {
                     String value = splitted[1].trim();
 
                     if (!value.equals("null")) {
-                        Class parClass = null;
+                        Class<?> parClass;
 
                         try {
                             parClass = type.getDeclaredField(splitted[0]).getType();
@@ -112,7 +113,7 @@ public class Connector<T extends BaseEntity> {
                             } else if (MappedEntity.class.equals(parClass)) {
                                 Field mappedField = type.getDeclaredField(field);
                                 mappedField.setAccessible(true);
-                                MappedEntity.class.getMethod("setId", int.class)
+                                MappedEntity.class.getMethod("setId", Integer.class)
                                         .invoke(mappedField.get(obj), Integer.valueOf(value));
                             } else if (Date.class.equals(parClass)) {
                                 Field mappedField = type.getDeclaredField(field);
@@ -125,7 +126,6 @@ public class Connector<T extends BaseEntity> {
                             }
                         } catch (IllegalAccessException | InvocationTargetException | NoSuchFieldException | NoSuchMethodException e) {
                             e.printStackTrace();
-                            continue;
                         }
                     }
                 }
@@ -133,7 +133,6 @@ public class Connector<T extends BaseEntity> {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found, or could not be opened");
-            System.exit(1);
         }
 
         return list;
@@ -149,7 +148,8 @@ public class Connector<T extends BaseEntity> {
 
     public void flush(ArrayList<T> list) {
         if (list.size() > 0) {
-            FileOutputStream fileOut = null;
+            list.sort(Comparator.comparing(BaseEntity::getId));
+            FileOutputStream fileOut;
 
             try {
                 fileOut = new FileOutputStream(filePath + fileName);
@@ -157,10 +157,20 @@ public class Connector<T extends BaseEntity> {
                 write.println("[");
                 int i;
                 for (i = 0; i < list.size() - 1; i++) {
-                    write.print(objToJson(list.get(i)));
-                    write.println(",");
+                    try{
+                        checkValidity(list.get(i));
+                        write.print(objToJson(list.get(i), "  "));
+                        write.println(",");
+                    } catch (EntityNotValidException e) {
+                        e.printStackTrace();
+                    }
                 }
-                write.print(objToJson(list.get(i)));
+                try {
+                    checkValidity(list.get(i));
+                    write.print(objToJson(list.get(i), "  "));
+                } catch (EntityNotValidException e) {
+                    e.printStackTrace();
+                }
                 write.println();
                 write.print("]");
                 write.close();
@@ -170,8 +180,14 @@ public class Connector<T extends BaseEntity> {
         }
     }
 
-    private String objToJson(T obj) {
-        String json = "  {\n";
+    private void checkValidity(T entity) throws EntityNotValidException{
+        if (!entity.isValid()) {
+            throw new EntityNotValidException(entity);
+        }
+    }
+
+    public String objToJson(Object obj, String padding) {
+        StringBuilder json = new StringBuilder(padding + "{\n");
 
         for (Field field : fields) {
             try {
@@ -179,40 +195,40 @@ public class Connector<T extends BaseEntity> {
                 Object value = field.get(obj);
 
                 if (field.getType().equals(MappedList.class)) {
+                    @SuppressWarnings("unchecked")
                     ArrayList<Integer> ids = (ArrayList<Integer>) MappedList.class.getMethod("getIds").invoke(value);
                     if (ids != null && ids.size() > 0) {
-                        json += "    \"" + field.getName() + "\": [\n";
+                        json.append(padding).append("  \"").append(field.getName()).append("\": [\n");
 
                         for (int i = 0; i < ids.size(); i++) {
-                            json += "      " + ids.get(i) + (i + 1 < ids.size() ? "," : "") + "\n";
+                            json.append(padding).append("    ").append(ids.get(i)).append(i + 1 < ids.size() ? "," : "").append("\n");
                         }
-                        json += "    ],\n";
+                        json.append(padding).append("  ],\n");
                     }
                 } else if (field.getType().equals(MappedEntity.class)) {
                     Integer id = (Integer) MappedEntity.class.getMethod("getId").invoke(value);
                     if (id != null) {
-                        json += "    \"" + field.getName() + "\": " + id + ",\n";
+                        json.append(padding).append("  \"").append(field.getName()).append("\": ").append(id).append(",\n");
                     }
                 } else if (field.getType().equals(Date.class)) {
                     if (value.toString() != null) {
-                        json += "    \"" + field.getName() + "\": \"" + value + "\",\n";
+                        json.append(padding).append("  \"").append(field.getName()).append("\": \"").append(value).append("\",\n");
                     }
                 } else {
                     if (value != null) {
-                        json += "    \"" + field.getName() + "\": ";
+                        json.append(padding).append("  \"").append(field.getName()).append("\": ");
                         if (Number.class.isAssignableFrom(field.getType())) {
-                            json += value + ",\n";
+                            json.append(value).append(",\n");
                         } else {
-                            json += "\"" + value + "\",\n";
+                            json.append("\"").append(value).append("\",\n");
                         }
                     }
                 }
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
-                continue;
             }
         }
-        json = json.substring(0, json.length() - 2) + "\n  }";
-        return json;
+        json = new StringBuilder(json.substring(0, json.length() - 2) + "\n" + padding + "}");
+        return json.toString();
     }
 }

@@ -1,4 +1,4 @@
-package com.toh.database.entity;
+package com.toh.database.core.field;
 
 public class Date {
     private int day;
@@ -47,9 +47,13 @@ public class Date {
 
     @Override
     public String toString() {
-        if (day != 0 && month != 0 && year != 0) {
+        if (isValid()) {
             return day + "/" + month + "/" + year;
         }
         return null;
+    }
+
+    public boolean isValid() {
+        return day != 0 && month != 0 && year != 0;
     }
 }

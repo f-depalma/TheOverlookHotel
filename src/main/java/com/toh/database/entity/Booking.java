@@ -1,8 +1,10 @@
 package com.toh.database.entity;
 
-import com.toh.database.core.BaseEntity;
-import com.toh.database.core.MappedEntity;
-import com.toh.database.core.MappedList;
+import com.toh.database.core.*;
+import com.toh.database.core.Exceptions.UnsavedEntityException;
+import com.toh.database.core.field.Date;
+import com.toh.database.core.field.MappedEntity;
+import com.toh.database.core.field.MappedList;
 
 import java.util.ArrayList;
 
@@ -12,14 +14,31 @@ public class Booking extends BaseEntity {
     private Date arrive = new Date();
     private Integer arriveHour;
     private Date departure = new Date();
-    private MappedList<Facility> facilities = new MappedList<>(Facility.class);
+    private MappedList<Facility> facilityList = new MappedList<>(Facility.class);
+
+    static {
+        notNullFields(Booking.class, "room", "guest", "arrive", "departure");
+    }
+
+    public Booking() {}
+
+    public Booking(Room room, Guest guest, Date arrive, Date departure) {
+        setRoom(room);
+        setGuest(guest);
+        setArrive(arrive);
+        setDeparture(departure);
+    }
 
     public Room getRoom() {
         return room.getValue();
     }
 
     public void setRoom(Room room) {
-        this.room.setValue(room);
+        try {
+            this.room.setValue(room);
+        } catch (UnsavedEntityException e) {
+            e.printStackTrace();
+        }
     }
 
     public Guest getGuest() {
@@ -27,7 +46,11 @@ public class Booking extends BaseEntity {
     }
 
     public void setGuest(Guest guest) {
-        this.guest.setValue(guest);
+        try {
+            this.guest.setValue(guest);
+        } catch (UnsavedEntityException e) {
+            e.printStackTrace();
+        }
     }
 
     public Date getArrive() {
@@ -54,19 +77,23 @@ public class Booking extends BaseEntity {
         this.departure = departure;
     }
 
-    public ArrayList<Facility> getFacilities() {
-        return facilities.getValue();
+    public ArrayList<Facility> getFacilityList() {
+        return facilityList.getValue();
     }
 
-    public void setFacilities(ArrayList<Facility> facilities) {
-        this.facilities.setValue(facilities);
+    public void setFacilityList(ArrayList<Facility> facilityList) {
+        try {
+            this.facilityList.setValue(facilityList);
+        } catch (UnsavedEntityException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveFacility(Facility facility) {
-        this.facilities.save(facility);
+        this.facilityList.save(facility);
     }
 
     public void deleteFacility(Integer id) {
-        this.facilities.remove(id);
+        this.facilityList.remove(id);
     }
 }

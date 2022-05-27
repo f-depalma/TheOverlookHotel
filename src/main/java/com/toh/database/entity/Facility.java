@@ -7,6 +7,17 @@ public class Facility extends BaseEntity {
     private String description;
     private Double price;
 
+    static {
+        notNullFields(Facility.class, "name", "price");
+    }
+
+    public Facility() {}
+
+    public Facility(String name, Double price) {
+        setName(name);
+        setPrice(price);
+    }
+
     public String getName() {
         return name;
     }
