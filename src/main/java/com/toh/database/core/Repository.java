@@ -91,7 +91,6 @@ public class Repository<T extends BaseEntity> {
                             throw new ConstraintException((BaseEntity) entity, field.getName());
                         }
                     }
-
                 } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
                     e.printStackTrace();
                 }
