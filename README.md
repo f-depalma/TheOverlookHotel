@@ -39,23 +39,28 @@
 try {
     // create and save roomType
     RoomType villa = new RoomType("k");
-    RoomTypeRepository.execute().save(villa);<br>
+    RoomTypeRepository.execute().save(villa);
+
     // create and save room
     Room r01 = new Room("201", villa, 5);
-    RoomRepository.execute().save(r01);<br>
+    RoomRepository.execute().save(r01);
+
     // create and save guest
     Guest g = new Guest("Paolo", "+455555555");
-    GuestRepository.execute().save(g);<br>
+    GuestRepository.execute().save(g);
+
     // create and save facilities
     Facility f = new Facility("a", 20.2);
     FacilityRepository.execute().save(f);
     Facility f2 = new Facility("b", 20.2);
-    FacilityRepository.execute().save(f2);<br>
+    FacilityRepository.execute().save(f2);
+
     //creating and save booking
     Booking b = new Booking(r01, g, new Date(10, 10, 10), new Date(10, 10, 10));
     b.saveFacility(f);
     b.saveFacility(f2);
-    BookingRepository.execute().save(b);<br>
+    BookingRepository.execute().save(b);
+
     //delete room and facility
     RoomRepository.execute().delete(1);
     FacilityRepository.execute().delete(1);
