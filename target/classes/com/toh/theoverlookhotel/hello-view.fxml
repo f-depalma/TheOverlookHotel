@@ -7,20 +7,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.toh.theoverlookhotel.HelloController">
    <children>
-      <Button layoutX="24.0" layoutY="273.0" mnemonicParsing="false" text="Manage CheckIn" textFill="#46b151">
+      <Button layoutX="24.0" layoutY="273.0" mnemonicParsing="false" onAction="#ManageCheckIn" text="Manage CheckIn" textFill="#46b151">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button layoutX="23.0" layoutY="221.0" mnemonicParsing="false" text="Manage Room" textFill="#46b151">
+      <Button layoutX="23.0" layoutY="221.0" mnemonicParsing="false" onAction="#ManageRoom" text="Manage Room" textFill="#46b151">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button layoutX="22.0" layoutY="170.0" mnemonicParsing="false" text="Manage Booking" textFill="#46b151">
+      <Button layoutX="22.0" layoutY="170.0" mnemonicParsing="false" onAction="#ManageBooking" text="Manage Booking" textFill="#46b151">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="24.0" layoutY="323.0" mnemonicParsing="false" text="Manage CheckOut" textFill="#46b151">
+      <Button layoutX="24.0" layoutY="323.0" mnemonicParsing="false" onAction="#ManageCheckOut" text="Manage CheckOut" textFill="#46b151">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -29,6 +29,6 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <Label fx:id="welcomeText" layoutX="56.0" layoutY="30.0" text="Label" />
+      <Label fx:id="welcomeText" layoutX="56.0" layoutY="30.0" />
    </children>
 </AnchorPane>

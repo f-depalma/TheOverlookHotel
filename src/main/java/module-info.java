@@ -12,4 +12,7 @@ module com.toh.theoverlookhotel {
 
   opens com.toh.theoverlookhotel to javafx.fxml;
   exports com.toh.theoverlookhotel;
+
+  opens com.toh.theoverlookhotel.booking to javafx.fxml;
+  exports com.toh.theoverlookhotel.booking;
 }

@@ -62,6 +62,6 @@ public class HelloApplication extends Application {
             System.out.println(GuestRepository.get().getConnector().ObjToJson(b));
         }
 
-        //launch();
+        launch();
     }
 }
