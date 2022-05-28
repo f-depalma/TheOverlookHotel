@@ -1,13 +1,7 @@
 <component name="libraryTable">
-<<<<<<<< HEAD:.idea/libraries/Maven__org_openjfx_javafx_graphics_win_17_0_1.xml
   <library name="Maven: org.openjfx:javafx-graphics:win:17.0.1">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.1/javafx-graphics-17.0.1-win.jar!/" />
-========
-  <library name="Maven: org.openjfx:javafx-graphics:mac-aarch64:17.0.2">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2-mac-aarch64.jar!/" />
->>>>>>>> main:.idea/libraries/Maven__org_openjfx_javafx_graphics_mac_aarch64_17_0_2.xml
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2-javadoc.jar!/" />

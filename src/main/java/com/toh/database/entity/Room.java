@@ -6,7 +6,7 @@ import com.toh.database.core.Exceptions.UnsavedEntityException;
 
 public class Room extends BaseEntity {
     private String number;
-    private MappedEntity<RoomType> roomType = new MappedEntity<>(RoomType.class);
+    private final MappedEntity<RoomType> roomType = new MappedEntity<>(RoomType.class);
     private Integer beds;
     private Boolean smoking;
     private Double price;
