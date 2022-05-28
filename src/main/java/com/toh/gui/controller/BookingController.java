@@ -1,4 +1,4 @@
-package com.toh.gui;
+package com.toh.gui.controller;
 
 import javafx.fxml.FXML;
 

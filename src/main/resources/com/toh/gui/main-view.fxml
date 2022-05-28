@@ -6,7 +6,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
             prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.toh.gui.MainController">
+            fx:controller="com.toh.gui.controller.MainController">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -14,11 +14,11 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="Rooms">
                             <items>
+                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" onAction="#clickRoomsFind" text="Find"/>
                                 <MenuItem mnemonicParsing="false" onAction="#clickRoomsAvailability"
                                           text="Availability"/>
-                                <MenuItem mnemonicParsing="false" onAction="#clickRoomsFind" text="Find"/>
                                 <MenuItem mnemonicParsing="false" text="Arrive &amp; Departure"/>
-                                <MenuItem mnemonicParsing="false" text="Room types"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Booking">
@@ -39,6 +39,12 @@
                                 <MenuItem mnemonicParsing="false" text="Find"/>
                             </items>
                         </Menu>
+                        <Menu mnemonicParsing="false" text="Room Type">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Find"/>
+                                <MenuItem mnemonicParsing="false" text="New"/>
+                            </items>
+                        </Menu>
                     </menus>
                 </MenuBar>
             </children>
@@ -46,9 +52,10 @@
     </top>
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <!-- content from counter.fxml included here -->
-            <fx:include fx:id="booking" managed="false" source="booking.fxml" visible="false"/>
-            <fx:include fx:id="checkin" source="checkin.fxml"/>
+            <children>
+                <fx:include fx:id="booking" managed="false" source="booking.fxml" visible="false"/>
+                <fx:include fx:id="checkin" source="checkin.fxml"/>
+            </children>
         </VBox>
     </center>
 </BorderPane>
