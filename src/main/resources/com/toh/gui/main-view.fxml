@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.toh.gui.MainController">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" onAction="#clickRooms" text="Rooms">
-                  <items>
-                        <MenuItem mnemonicParsing="false" text="Availability" />
-                    <MenuItem mnemonicParsing="false" onAction="#clickRoomsFind" text="Find" />
-                        <MenuItem mnemonicParsing="false" text="Arrive &amp; Departure" />
-                        <MenuItem mnemonicParsing="false" text="Room types" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Booking">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Find" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Check-in">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Find" />
-                  </items>
-                </Menu>
-                  <Menu mnemonicParsing="false" text="Check-out">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Find" />
-                    </items>
-                  </Menu>
-              </menus>
-            </MenuBar>
-         </children>
-      </VBox>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.toh.gui.MainController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Rooms">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#clickRoomsAvailability"
+                                          text="Availability"/>
+                                <MenuItem mnemonicParsing="false" onAction="#clickRoomsFind" text="Find"/>
+                                <MenuItem mnemonicParsing="false" text="Arrive &amp; Departure"/>
+                                <MenuItem mnemonicParsing="false" text="Room types"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Booking">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" text="Find"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Check-in">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" text="Find"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Check-out">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" text="Find"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <!-- content from counter.fxml included here -->
+            <fx:include fx:id="booking" managed="false" source="booking.fxml" visible="false"/>
+            <fx:include fx:id="checkin" source="checkin.fxml"/>
+        </VBox>
+    </center>
 </BorderPane>
