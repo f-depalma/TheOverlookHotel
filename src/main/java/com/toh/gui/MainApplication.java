@@ -1,5 +1,9 @@
 package com.toh.gui;
 
+import com.toh.database.entity.Room;
+import com.toh.database.entity.RoomType;
+import com.toh.database.repository.RoomRepository;
+import com.toh.database.repository.RoomTypeRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,9 +19,24 @@ public class MainApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+
     }
 
     public static void main(String[] args) {
+        Room r01 = new Room();
+        r01.setBeds(5);
+        r01.setSmoking(true);
+        r01.setNumber("201");
+        r01.setPrice(200.4);
+        RoomType villa = new RoomType();
+        villa.setName("k");
+        r01.setType(villa);
+        RoomTypeRepository.execute().saveAndFlush(villa);
+        RoomRepository.execute().save(r01);
+        RoomRepository.execute().flush();
+
+
         launch();
     }
 }
