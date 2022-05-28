@@ -1,13 +1,25 @@
 package com.toh.database.entity;
 
 import com.toh.database.core.BaseEntity;
-import com.toh.database.core.MappedList;
+import com.toh.database.core.field.MappedList;
+import com.toh.database.core.Exceptions.UnsavedEntityException;
 
 import java.util.ArrayList;
 
 public class RoomType extends BaseEntity {
     private String name;
-    private MappedList<Facility> facilities = new MappedList<>(Facility.class);
+    private String imageName;
+    private MappedList<Facility> facilityList = new MappedList<>(Facility.class);
+
+    static {
+        notNullFields(RoomType.class, "name");
+    }
+
+    public RoomType() {}
+
+    public RoomType(String name) {
+        setName(name);
+    }
 
     public String getName() {
         return name;
@@ -17,19 +29,31 @@ public class RoomType extends BaseEntity {
         this.name = name;
     }
 
-    public ArrayList<Facility> getFacilities() {
-        return facilities.getValue();
+    public ArrayList<Facility> getFacilityList() {
+        return facilityList.getValue();
     }
 
-    public void setFacilities(ArrayList<Facility> facilities) {
-        this.facilities.setValue(facilities);
+    public void setFacilityList(ArrayList<Facility> facilityList) {
+        try {
+            this.facilityList.setValue(facilityList);
+        } catch (UnsavedEntityException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveFacility(Facility facility) {
-        this.facilities.save(facility);
+        this.facilityList.save(facility);
     }
 
     public void deleteFacility(Integer id) {
-        this.facilities.remove(id);
+        this.facilityList.remove(id);
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

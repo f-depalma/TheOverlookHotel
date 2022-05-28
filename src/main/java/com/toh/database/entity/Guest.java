@@ -9,6 +9,17 @@ public class Guest extends BaseEntity {
     private String phoneNumber;
     private String nationality;
 
+    static {
+        notNullFields(Guest.class, "name", "phoneNumber");
+    }
+
+    public Guest() {}
+
+    public Guest(String name, String phoneNumber) {
+        setName(name);
+        setPhoneNumber(phoneNumber);
+    }
+
     public String getName() {
         return name;
     }

@@ -1,14 +1,27 @@
 package com.toh.database.entity;
 
 import com.toh.database.core.BaseEntity;
-import com.toh.database.core.MappedEntity;
+import com.toh.database.core.field.MappedEntity;
+import com.toh.database.core.Exceptions.UnsavedEntityException;
 
 public class Room extends BaseEntity {
     private String number;
-    private MappedEntity<RoomType> type = new MappedEntity<>(RoomType.class);
+    private MappedEntity<RoomType> roomType = new MappedEntity<>(RoomType.class);
     private Integer beds;
     private Boolean smoking;
     private Double price;
+
+    static {
+        notNullFields(Room.class, "number", "roomType", "beds");
+    }
+
+    public Room() {}
+
+    public Room(String number, RoomType roomType, Integer beds) {
+        setNumber(number);
+        setRoomType(roomType);
+        setBeds(beds);
+    }
 
     public String getNumber() {
         return number;
@@ -18,12 +31,16 @@ public class Room extends BaseEntity {
         this.number = number;
     }
 
-    public RoomType getType() {
-        return type.getValue();
+    public RoomType getRoomType() {
+        return roomType.getValue();
     }
 
-    public void setType(RoomType type) {
-        this.type.setValue(type);
+    public void setRoomType(RoomType roomType) {
+        try {
+            this.roomType.setValue(roomType);
+        } catch (UnsavedEntityException e) {
+            e.printStackTrace();
+        }
     }
 
     public Integer getBeds() {
