@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class GuestMapper {
-    public static GuestDTO map(Guest guest) {
+
+    public static GuestDTO entityToDTO(Guest guest) {
         GuestDTO dto = new GuestDTO();
         dto.setName(guest.getName());
         dto.setPhoneNumber(guest.getPhoneNumber());
@@ -17,8 +18,8 @@ public class GuestMapper {
         return dto;
     }
 
-    public static ArrayList<GuestDTO> mapList(ArrayList<Guest> guests) {
-        return guests.stream().map(g -> map(g))
+    public static ArrayList<GuestDTO> entityToDTOList(ArrayList<Guest> guests) {
+        return guests.stream().map(g -> entityToDTO(g))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

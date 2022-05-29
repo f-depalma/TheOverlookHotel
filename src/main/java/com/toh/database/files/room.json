@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "number": "K219",
+    "roomType": 1,
+    "beds": 3,
+    "price": 200.99
+  },
+  {
+    "id": 2,
+    "number": "K219",
+    "roomType": 2,
+    "beds": 3,
+    "price": 200.99
+  },
+  {
+    "id": 3,
+    "number": "K219",
+    "roomType": 3,
+    "beds": 3,
+    "price": 200.99
+  },
+  {
+    "id": 4,
+    "number": "K219",
+    "roomType": 4,
+    "beds": 3,
+    "price": 200.99
+  },
+  {
+    "id": 5,
+    "number": "K219",
+    "roomType": 5,
+    "beds": 3,
+    "price": 200.99
+  }
+]

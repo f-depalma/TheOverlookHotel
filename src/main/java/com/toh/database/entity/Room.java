@@ -12,15 +12,16 @@ public class Room extends BaseEntity {
     private Double price;
 
     static {
-        notNullFields(Room.class, "number", "roomType", "beds");
+        notNullFields(Room.class, "number", "roomType", "beds", "price");
     }
 
     public Room() {}
 
-    public Room(String number, RoomType roomType, Integer beds) {
+    public Room(String number, RoomType roomType, Integer beds, Double price) {
         setNumber(number);
         setRoomType(roomType);
         setBeds(beds);
+        setPrice(price);
     }
 
     public String getNumber() {

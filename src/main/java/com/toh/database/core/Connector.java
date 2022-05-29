@@ -132,7 +132,7 @@ public class Connector<T extends BaseEntity> {
 
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, or could not be opened");
+            System.out.println("File " + fileName + " not found, or could not be opened");
         }
 
         return list;
@@ -157,7 +157,7 @@ public class Connector<T extends BaseEntity> {
                 write.println("[");
                 int i;
                 for (i = 0; i < list.size() - 1; i++) {
-                    try{
+                    try {
                         checkValidity(list.get(i));
                         write.print(objToJson(list.get(i), "  "));
                         write.println(",");
@@ -180,7 +180,7 @@ public class Connector<T extends BaseEntity> {
         }
     }
 
-    private void checkValidity(T entity) throws EntityNotValidException{
+    private void checkValidity(T entity) throws EntityNotValidException {
         if (!entity.isValid()) {
             throw new EntityNotValidException(entity);
         }

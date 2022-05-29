@@ -6,12 +6,17 @@ public class Date {
     private int year;
 
 
-    public Date() {}
+    public Date() {
+    }
 
     public Date(int day, int month, int year) {
         this.year = year;
         this.month = month;
         this.day = day;
+    }
+
+    public Date(String date) {
+        set(date);
     }
 
     public void set(String date) {
@@ -55,5 +60,25 @@ public class Date {
 
     public boolean isValid() {
         return day != 0 && month != 0 && year != 0;
+    }
+
+    public boolean isAfterThen(Date date) {
+        if (year == date.year) {
+            if (month == date.month) {
+                if (day == date.day) {
+                    return false;
+                } else {
+                    return day > date.day;
+                }
+            } else {
+                return month > date.month;
+            }
+        } else {
+            return year > date.year;
+        }
+    }
+
+    public boolean isBetween(Date date1, Date date2) {
+        return isAfterThen(date1) != isAfterThen(date2);
     }
 }

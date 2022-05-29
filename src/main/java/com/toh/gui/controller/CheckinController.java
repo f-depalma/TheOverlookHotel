@@ -1,13 +1,9 @@
 package com.toh.gui.controller;
 
-import com.toh.database.entity.Checkin;
-import com.toh.database.entity.Guest;
-import com.toh.database.repository.CheckinRepository;
 import com.toh.database.repository.GuestRepository;
 import com.toh.gui.dto.GuestDTO;
 import com.toh.gui.mapper.GuestMapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
@@ -22,6 +18,6 @@ public class CheckinController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        table.setItems(FXCollections.observableList(GuestMapper.mapList(GuestRepository.execute().getAll())));
+        table.setItems(FXCollections.observableList(GuestMapper.entityToDTOList(GuestRepository.execute().getAll())));
     }
 }

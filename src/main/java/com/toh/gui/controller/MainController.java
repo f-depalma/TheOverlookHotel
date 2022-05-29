@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class MainController {
 
     @FXML
-    public Pane checkin, booking;
+    public Pane checkin, booking, availability;
 
     @FXML
     protected void clickRoomsFind() {
