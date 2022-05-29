@@ -6,10 +6,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+      prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.toh.gui.controller.CheckinController">
     <children>
-        <Button layoutX="109.0" layoutY="113.0" mnemonicParsing="false" onAction="#clickButton" text="Button"/>
+        <TableView fx:id="table" prefHeight="800.0" prefWidth="1200.0">
+            <columns>
+                <TableColumn prefWidth="220.0" text="Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn minWidth="0.0" prefWidth="217.0" text="Phone N.">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="phoneNumber"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="178.0" text="Birthday">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="birthday"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="440.0" text="Address">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="homeAddress"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="144.0" text="Nationality">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="nationality"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
     </children>
 </Pane>

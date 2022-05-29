@@ -14,4 +14,6 @@ module com.toh.theoverlookhotel {
     exports com.toh.gui;
     exports com.toh.gui.controller;
     opens com.toh.gui.controller to javafx.fxml;
+    exports com.toh.gui.dto;
+    opens com.toh.gui.dto to javafx.fxml;
 }
