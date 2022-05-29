@@ -12,13 +12,18 @@ public class MainController {
     public Pane checkin, booking, availability;
 
     @FXML
-    protected void clickRoomsFind() {
+    protected void clickCheckinNew() {
         setVisible(checkin);
     }
 
     @FXML
-    protected void clickRoomsAvailability() {
+    protected void clickBookingNew() {
         setVisible(booking);
+    }
+
+    @FXML
+    protected void clickRoomsAvailability() {
+        setVisible(availability);
     }
 
 

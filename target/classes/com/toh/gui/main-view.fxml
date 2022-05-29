@@ -15,7 +15,7 @@
                         <Menu mnemonicParsing="false" text="Rooms">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="New"/>
-                                <MenuItem mnemonicParsing="false" onAction="#clickRoomsFind" text="Find"/>
+                                <MenuItem mnemonicParsing="false" text="Find"/>
                                 <MenuItem mnemonicParsing="false" onAction="#clickRoomsAvailability"
                                           text="Availability"/>
                                 <MenuItem mnemonicParsing="false" text="Arrive &amp; Departure"/>
@@ -23,13 +23,13 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Booking">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" text="New" onAction="#clickBookingNew"/>
                                 <MenuItem mnemonicParsing="false" text="Find"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Check-in">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" text="New" onAction="#clickCheckinNew"/>
                                 <MenuItem mnemonicParsing="false" text="Find"/>
                             </items>
                         </Menu>
@@ -53,7 +53,7 @@
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <!--<fx:include fx:id="booking" managed="false" source="booking.fxml" visible="false"/>-->
+                <fx:include fx:id="booking" managed="false" source="booking.fxml" visible="false"/>
                 <fx:include fx:id="checkin" managed="false" source="checkin.fxml" visible="false"/>
                 <fx:include fx:id="availability" source="availability.fxml"/>
             </children>
