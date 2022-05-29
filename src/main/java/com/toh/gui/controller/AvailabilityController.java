@@ -46,7 +46,6 @@ public class AvailabilityController {
                         .collect(Collectors.toCollection(ArrayList::new));
             }
 
-            System.out.println(rooms.stream().map(r -> r.getNumber()).collect(Collectors.toList()));
             table.setItems(FXCollections.observableList(RoomMapper.entityToDTOList(rooms)));
         }
     }
