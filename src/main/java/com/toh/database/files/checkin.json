@@ -13,5 +13,13 @@
       7
     ],
     "booking": 2
+  },
+  {
+    "id": 3,
+    "guestList": [
+      7,
+      14
+    ],
+    "booking": 2
   }
 ]
