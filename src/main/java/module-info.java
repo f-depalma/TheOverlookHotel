@@ -1,4 +1,4 @@
-module com.toh.theoverlookhotel {
+module com.toh {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
