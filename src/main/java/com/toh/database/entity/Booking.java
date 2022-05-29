@@ -9,12 +9,12 @@ import com.toh.database.core.field.MappedList;
 import java.util.ArrayList;
 
 public class Booking extends BaseEntity {
-    private MappedEntity<Room> room = new MappedEntity<>(Room.class);
-    private MappedEntity<Guest> guest = new MappedEntity<>(Guest.class);
+    private final MappedEntity<Room> room = new MappedEntity<>(Room.class);
+    private final MappedEntity<Guest> guest = new MappedEntity<>(Guest.class);
     private Date arrive = new Date();
     private Integer arriveHour;
     private Date departure = new Date();
-    private MappedList<Facility> facilityList = new MappedList<>(Facility.class);
+    private final MappedList<Facility> facilityList = new MappedList<>(Facility.class);
 
     static {
         notNullFields(Booking.class, "room", "guest", "arrive", "departure");

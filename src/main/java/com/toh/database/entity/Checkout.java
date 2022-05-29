@@ -5,7 +5,7 @@ import com.toh.database.core.field.MappedEntity;
 import com.toh.database.core.Exceptions.UnsavedEntityException;
 
 public class Checkout extends BaseEntity {
-    private MappedEntity<Booking> booking = new MappedEntity<>(Booking.class);
+    private final MappedEntity<Booking> booking = new MappedEntity<>(Booking.class);
     private Double price;
     private Integer discount;
 

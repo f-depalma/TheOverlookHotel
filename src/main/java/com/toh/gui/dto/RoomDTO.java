@@ -1,8 +1,10 @@
 package com.toh.gui.dto;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class RoomDTO {
+    private SimpleIntegerProperty id = new SimpleIntegerProperty();
     private SimpleStringProperty number = new SimpleStringProperty();
     private SimpleStringProperty roomType = new SimpleStringProperty();
     private SimpleStringProperty beds = new SimpleStringProperty();
@@ -67,5 +69,25 @@ public class RoomDTO {
 
     public void setPrice(String price) {
         this.price.set(price);
+    }
+
+    public int getId()
+    {
+        return id.get();
+    }
+
+    public SimpleIntegerProperty idProperty()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id.set(id);
+    }
+
+    @Override public String toString()
+    {
+        return this.getNumber();
     }
 }

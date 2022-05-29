@@ -8,8 +8,8 @@ import com.toh.database.core.Exceptions.UnsavedEntityException;
 import java.util.ArrayList;
 
 public class Checkin extends BaseEntity {
-    private MappedList<Guest> guestList = new MappedList<>(Guest.class);
-    private MappedEntity<Booking> booking = new MappedEntity<>(Booking.class);
+    private final MappedList<Guest> guestList = new MappedList<>(Guest.class);
+    private final MappedEntity<Booking> booking = new MappedEntity<>(Booking.class);
 
     static {
         notNullFields(Checkin.class, "guestList", "booking");

@@ -1,13 +1,30 @@
 package com.toh.gui.dto;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class GuestDTO {
+    private SimpleIntegerProperty id = new SimpleIntegerProperty();
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty birthday = new SimpleStringProperty();
     private SimpleStringProperty homeAddress = new SimpleStringProperty();
     private SimpleStringProperty phoneNumber = new SimpleStringProperty();
     private SimpleStringProperty nationality = new SimpleStringProperty();
+
+    public int getId()
+    {
+        return id.get();
+    }
+
+    public SimpleIntegerProperty idProperty()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id.set(id);
+    }
 
     public String getName() {
         return name.get();
@@ -68,4 +85,5 @@ public class GuestDTO {
     public void setNationality(String nationality) {
         this.nationality.set(nationality);
     }
+
 }

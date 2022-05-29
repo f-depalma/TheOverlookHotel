@@ -10,6 +10,7 @@ public class RoomMapper {
 
     public static RoomDTO entityToDTO(Room room) {
         RoomDTO dto = new RoomDTO();
+        dto.setId(room.getId());
         dto.setNumber(room.getNumber());
         dto.setRoomType(room.getRoomType().getName());
         dto.setBeds(room.getBeds().toString());

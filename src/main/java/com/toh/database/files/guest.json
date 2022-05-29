@@ -1,32 +1,18 @@
 [
   {
-    "id": 1,
-    "name": "Francesco",
-    "phoneNumber": "+4555555"
+    "id": 7,
+    "name": "alec",
+    "birthday": "12/05/2000",
+    "homeAddress": "hey",
+    "phoneNumber": "1598336",
+    "nationality": "po"
   },
   {
-    "id": 2,
-    "name": "Francesco",
-    "phoneNumber": "+4555555"
-  },
-  {
-    "id": 3,
-    "name": "Francesco",
-    "phoneNumber": "+4555555"
-  },
-  {
-    "id": 4,
-    "name": "Francesco",
-    "phoneNumber": "+4555555"
-  },
-  {
-    "id": 5,
-    "name": "Francesco",
-    "phoneNumber": "+4555555"
-  },
-  {
-    "id": 6,
-    "name": "Francesco",
-    "phoneNumber": "+4555555"
+    "id": 8,
+    "name": "fra",
+    "birthday": "12/10/1995",
+    "homeAddress": "12 via alessia",
+    "phoneNumber": "91426640",
+    "nationality": "ita"
   }
 ]

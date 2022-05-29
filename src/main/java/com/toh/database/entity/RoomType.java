@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class RoomType extends BaseEntity {
     private String name;
     private String imageName;
-    private MappedList<Facility> facilityList = new MappedList<>(Facility.class);
+    private final MappedList<Facility> facilityList = new MappedList<>(Facility.class);
 
     static {
         notNullFields(RoomType.class, "name");

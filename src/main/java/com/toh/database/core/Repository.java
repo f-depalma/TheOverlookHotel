@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class Repository<T extends BaseEntity> {
     protected Connector<T> connector;
     protected ArrayList<T> data;
-    private Class<T> type;
+    private final Class<T> type;
 
     protected Repository(Class<T> type, String fileName) {
         this.type = type;

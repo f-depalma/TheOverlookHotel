@@ -1,6 +1,7 @@
 package com.toh.gui.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 import java.util.Arrays;
@@ -19,6 +20,8 @@ public class MainController {
     protected void clickRoomsAvailability() {
         setVisible(booking);
     }
+
+
 
     private void setVisible(Pane p) {
         Arrays.stream(MainController.class.getDeclaredFields())

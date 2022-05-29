@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "guestList": [
+      7,
+      13
+    ],
+    "booking": 2
+  },
+  {
+    "id": 2,
+    "guestList": [
+      7
+    ],
+    "booking": 2
+  }
+]
