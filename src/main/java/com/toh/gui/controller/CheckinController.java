@@ -10,7 +10,9 @@ import com.toh.database.repository.BookingRepository;
 import com.toh.database.repository.CheckinRepository;
 import com.toh.database.repository.GuestRepository;
 import com.toh.gui.dto.GuestDTO;
+import com.toh.gui.dto.RoomDTO;
 import com.toh.gui.mapper.GuestMapper;
+import com.toh.gui.mapper.RoomMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,19 +28,17 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class CheckinController implements Initializable
+public class CheckinController
 {
 
   @FXML private TableView<GuestDTO> table;
 
   @FXML private TextField name, address, birthday, phoneNumber, nationality, nameInput;
-  @FXML private ComboBox<Room> roomComboBox;
+  @FXML private ComboBox<RoomDTO> roomComboBox;
 
-  @Override public void initialize(URL url, ResourceBundle resourceBundle)
-  {
-    table.setItems(FXCollections.observableList(
-        GuestMapper.mapList(GuestRepository.execute().getAll())));
-  }
+  @FXML private Button save;
+
+  private ArrayList<Booking> bookings;
 
   public void ClickOnAddCheckIn()
   {
@@ -51,9 +51,8 @@ public class CheckinController implements Initializable
 
     try
     {
-      GuestRepository.execute().saveAndFlush(guest);
-      GuestMapper.map(guest);
-      table.getItems().add(GuestMapper.map(guest));
+      GuestRepository.execute().save(guest);
+      table.getItems().add(GuestMapper.entityToDTO(guest));
     }
     catch (EntityNotValidException e)
     {
@@ -86,17 +85,46 @@ public class CheckinController implements Initializable
         e.printStackTrace();
       }
     }
-    GuestRepository.execute().flush();
   }
 
-  public void clickOnSearchButton()
+  @FXML public void clickOnSearchButton()
   {
-    roomComboBox.setItems(FXCollections.observableList(
-        BookingRepository.execute().getAll().stream()
-            .filter(b -> b.getGuest().getName().equals(nameInput.getText()))
-            .map(b -> b.getRoom())
-            .collect(Collectors.toCollection(ArrayList::new))));
+    bookings = BookingRepository.execute().getAll().stream()
+        .filter(b -> b.getGuest().getName().equals(nameInput.getText()))
+        .collect(Collectors.toCollection(ArrayList::new));
 
+    ArrayList<RoomDTO> list = bookings.stream()
+        .map(b -> RoomMapper.entityToDTO(b.getRoom()))
+        .collect(Collectors.toCollection(ArrayList::new));
+
+    roomComboBox.setItems(FXCollections.observableList(list));
+
+  }
+
+  @FXML public void selectBooking()
+  {
+    RoomDTO itemSelected = roomComboBox.getSelectionModel().getSelectedItem();
+    table.getItems().add(GuestMapper.entityToDTO(bookings.stream()
+            .filter(b -> b.getRoom().getId().equals(itemSelected.getId()))
+            .findFirst().orElse(null).getGuest()));
+    save.setDisable(false);
+  }
+  @FXML public void clickOnSaveButton(){
+    Checkin checkin = new Checkin();
+    checkin.setBooking(bookings.stream()
+        .filter(b -> b.getRoom().getId().equals(roomComboBox.getSelectionModel().getSelectedItem().getId()))
+        .findFirst().orElse(null));
+    checkin.setGuestList(
+        GuestMapper.DTOToEntityList(table.getItems().stream().collect(Collectors.toCollection(ArrayList::new))));
+    try
+    {
+      CheckinRepository.execute().saveAndFlush(checkin);
+      GuestRepository.execute().flush();
+    }
+    catch (EntityNotValidException e)
+    {
+      e.printStackTrace();
+    }
   }
 
 }
