@@ -1,48 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.toh.gui.MainController">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" onAction="#clickRooms" text="Rooms">
-                  <items>
-                        <MenuItem mnemonicParsing="false" text="Availability" />
-                    <MenuItem mnemonicParsing="false" onAction="#clickRoomsFind" text="Find" />
-                        <MenuItem mnemonicParsing="false" text="Arrive &amp; Departure" />
-                        <MenuItem mnemonicParsing="false" text="Room types" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Booking">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Find" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Check-in">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Find" />
-                  </items>
-                </Menu>
-                  <Menu mnemonicParsing="false" text="Check-out">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Find" />
-                    </items>
-                  </Menu>
-              </menus>
-            </MenuBar>
-         </children>
-      </VBox>
-   </top>
-</BorderPane>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+         minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+         tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.toh.gui.MainController">
+    <tabs>
+        <Tab text="Home">
+        </Tab>
+        <Tab text="Rooms">
+        </Tab>
+        <Tab text="Booking">
+            <content>
+            <fx:include fx:id="bookingView" source="Booking.fxml"/>
+            </content>
+        </Tab>
+        <Tab text="CheckIn">
+        </Tab>
+        <Tab text="CheckOut">
+        </Tab>
+        <Tab text="Help">
+        </Tab>
+    </tabs>
+</TabPane>
