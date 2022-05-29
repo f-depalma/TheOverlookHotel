@@ -1,6 +1,7 @@
 package com.toh.gui.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 import java.util.Arrays;
@@ -20,18 +21,16 @@ public class MainController {
         setVisible(booking);
     }
 
+
+
     private void setVisible(Pane p) {
-        p.setVisible(true);
-        p.setManaged(true);
         Arrays.stream(MainController.class.getDeclaredFields())
                 .filter(f -> f.getType().equals(Pane.class))
                 .forEach(f -> {
                     try {
-                        Pane otherP = (Pane) f.get(this);
-                        if (!otherP.equals(p)) {
-                            otherP.setVisible(false);
-                            otherP.setManaged(false);
-                        }
+                        Pane pane = (Pane) f.get(this);
+                        pane.setVisible(pane.equals(p));
+                        pane.setManaged(pane.equals(p));
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
