@@ -33,5 +33,12 @@
     "roomType": 5,
     "beds": 3,
     "price": 200.99
+  },
+  {
+    "id": 6,
+    "number": "K219",
+    "roomType": 6,
+    "beds": 3,
+    "price": 200.99
   }
 ]

@@ -28,20 +28,6 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-
-        try {
-            RoomType t = new RoomType("tipo");
-            RoomTypeRepository.execute().saveAndFlush(t);
-            Room r = new Room("K219", t, 3, 200.99);
-            RoomRepository.execute().saveAndFlush(r);
-            Guest g = new Guest("Francesco", "+4555555");
-            GuestRepository.execute().saveAndFlush(g);
-            Booking b = new Booking(r, g, new Date(10, 10, 2020), new Date(14, 10, 2020));
-            BookingRepository.execute().saveAndFlush(b);
-
-        } catch (EntityNotValidException e) {
-            e.printStackTrace();
-        }
         launch();
     }
 }
