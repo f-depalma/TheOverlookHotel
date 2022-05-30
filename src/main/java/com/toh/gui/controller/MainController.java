@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class MainController {
 
     @FXML
-    public Pane checkin, booking, availability, checkout;
+    public Pane checkin, booking, availability, checkout, ad;
 
     @FXML
     protected void clickCheckinNew() {
@@ -31,6 +31,10 @@ public class MainController {
         setVisible(checkout);
     }
 
+    @FXML
+    protected void clickRoomAD() {
+        setVisible(ad);
+    }
 
 
     private void setVisible(Pane p) {

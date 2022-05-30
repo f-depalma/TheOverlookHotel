@@ -145,6 +145,5 @@ public class BookingController implements Initializable {
             error.show();
             e.printStackTrace();
         }
-
     }
 }

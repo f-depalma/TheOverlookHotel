@@ -18,7 +18,7 @@
                                 <MenuItem mnemonicParsing="false" text="Find"/>
                                 <MenuItem mnemonicParsing="false" onAction="#clickRoomsAvailability"
                                           text="Availability"/>
-                                <MenuItem mnemonicParsing="false" text="Arrive &amp; Departure"/>
+                                <MenuItem mnemonicParsing="false" text="Arrive &amp; Departure" onAction="#clickRoomAD"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Booking">
@@ -56,6 +56,7 @@
                 <fx:include fx:id="booking" managed="false" source="booking.fxml" visible="false"/>
                 <fx:include fx:id="checkin" managed="false" source="checkin.fxml" visible="false"/>
                 <fx:include fx:id="checkout" managed="false" source="checkout.fxml" visible="false"/>
+                <fx:include fx:id="ad" managed="false" source="a-d.fxml" visible="false"/>
                 <fx:include fx:id="availability" source="availability.fxml"/>
             </children>
         </VBox>
