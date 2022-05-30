@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "COSY STUDIO",
+    "description": "The coziness already hides in the name. The Cosy Studio is the compact starting point of your journey. Equipped with everything you need to feel good and with a view of the village and the impressive mountain scenery.",
+    "price": 200.49,
+    "imageName": "room1.jpg",
+    "facilityList": [
+      1
+    ]
+  }
+]

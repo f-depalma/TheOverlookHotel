@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "room": 1,
+    "guest": 1,
+    "arrive": "10/10/2020",
+    "departure": "14/10/2020",
+    "facilityList": [
+      1
+    ]
+  },
+  {
+    "id": 2,
+    "room": 1,
+    "guest": 2,
+    "arrive": "10/5/2022",
+    "arriveHour": 10,
+    "departure": "11/5/2022",
+    "facilityList": [
+      2
+    ]
+  },
+  {
+    "id": 5,
+    "room": 1,
+    "guest": 5,
+    "arrive": "30/5/2022",
+    "arriveHour": 1,
+    "departure": "31/5/2022",
+    "facilityList": [
+      2,
+      1
+    ]
+  },
+  {
+    "id": 6,
+    "room": 2,
+    "guest": 7,
+    "arrive": "30/5/2022",
+    "arriveHour": 12,
+    "departure": "30/5/2022",
+    "facilityList": [
+      1
+    ]
+  }
+]
