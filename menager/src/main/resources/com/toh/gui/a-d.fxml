@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.toh.gui.controller.ADController">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="600.0">
+            <children>
+                <Label text="Arrive">
+                    <VBox.margin>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="arrive" prefHeight="682.0" prefWidth="600.0">
+                    <columns>
+                        <TableColumn prefWidth="141.0" text="Number">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="number" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="110.0" text="Type">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="roomType" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="114.0" text="Bed">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="beds" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="117.0" text="Smoking">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="smoking" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="116.0" text="Price">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="price" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+        <VBox alignment="TOP_CENTER" layoutX="600.0" prefHeight="800.0" prefWidth="600.0">
+            <children>
+                <Label text="Departure">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                    </VBox.margin>
+                </Label>
+                <TableView fx:id="departure" prefHeight="681.0" prefWidth="600.0">
+                    <columns>
+                        <TableColumn prefWidth="141.0" text="Number">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="number" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="110.0" text="Type">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="roomType" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="114.0" text="Bed">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="beds" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="117.0" text="Smoking">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="smoking" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="116.0" text="Price">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="price" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </children>
+</Pane>

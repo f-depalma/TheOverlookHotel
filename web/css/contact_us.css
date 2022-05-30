@@ -1,0 +1,92 @@
+/* MADE BY ANDRIS ZITMANIS-ZIHMANIS */
+
+.contact-card {
+    max-width: 500px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.contact-card > img {
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.contact-descr {
+    background-color: #fff;
+    display: grid;
+    padding: 20px;
+}
+
+.line {
+    line-height: 30px;
+}
+
+.name {
+    float: left;
+    font-size: 14px;
+    color: #555;
+}
+
+.value {
+    float: right;
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.role-description {
+    float: left;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.person {
+    color: black;
+    font-size: 19px;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+/* MADE BY FRANCESCO DE PALMA */
+.value > a {
+    color: black;
+    text-decoration: none;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+.value > a:hover {
+    background-color: #947a79;
+    color: #eee;
+}
+
+.value > a:active {
+    background-color: #aaa;
+}
+
+@media screen and (max-width: 335px) {
+    .line {
+        line-height: 22px;
+    }
+
+    .name {
+        font-size: 12px;
+    }
+
+    .value {
+        font-size: 12px;
+        line-height: 22px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .row-content {
+        margin-top: 80px;
+    }
+}

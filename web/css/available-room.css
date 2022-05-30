@@ -1,0 +1,72 @@
+/* MADE BY FRANCESCO DE PALMA */
+
+.room-card {
+    max-width: 500px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.room-card > img {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.room-descr {
+    border-radius: 0 0 5px 5px;
+    background-color: #fff;
+    display: grid;
+    padding: 20px;
+}
+
+.line {
+    line-height: 30px;
+}
+
+.name {
+    float: left;
+    font-size: 14px;
+    color: #555;
+}
+
+.value {
+    float: right;
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+.free {
+    color: green;
+}
+
+.booked {
+    color: red;
+}
+
+.bullet {
+    font-size: 30px;
+    float: right;
+}
+
+@media screen and (max-width: 335px) {
+    .line {
+        line-height: 22px;
+    }
+
+    .name {
+        font-size: 12px;
+    }
+
+    .value {
+        font-size: 12px;
+        line-height: 22px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .row-content {
+        margin-top: 80px;
+    }
+}

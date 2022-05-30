@@ -1,0 +1,200 @@
+/* MADE BY FRANCESCO DE PALMA */
+
+body {
+    margin: 0; 
+    background-color: #eee;
+    font-family: "Cutive Mono", "Courier New", monospace;
+    /* font-family: "Avenir","sans-serif"; */
+}
+
+#header {
+    width: 100%;
+    height: 80px;
+    background-color: #591414;
+    z-index: 12;    
+    position: fixed;
+    top: 0;
+}
+
+#logo-header {
+    margin-left: 10px;
+    height: 60px;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#logo-header:hover {
+    background-color: #400f0f;
+}
+
+#title {
+    font-size: 34px;
+    color: #eee;
+    font-weight: 800;
+    line-height: 80px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#menu {
+    z-index: 11;
+    background-color: #400f0f;
+    min-height: 1px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 80px;
+    padding: 0;
+    display: block;
+}
+
+@media screen and (max-width: 767px){
+    #menu {
+        position: fixed;
+        z-index: 10;
+        top: 0px;
+    }
+}
+
+.selected {
+    background-color: #591414;
+}
+
+.menu-item {
+    width: fit-content;
+    min-height: 50px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+}
+ 
+.menu-item-text {
+    font-size: 20px;
+    color: #eee;
+    line-height: 35px;
+    margin: 0 20px;
+    font-weight: 800;
+}
+
+@media screen and (max-width: 933px){
+    .menu-item-text, .dropdown-item {
+        font-size: 17px !important;
+    }
+}
+
+@media screen and (max-width: 854px){
+    .menu-item-text, .dropdown-item {
+        font-size: 14px !important;
+    }
+}
+
+.menu-item:hover {
+    background-color: #555;
+}
+
+#content {
+    min-height: calc(100vh - 330px);
+}
+
+@media screen and (max-width: 767px){
+    #content {
+        margin-top: 80px;
+    }
+}
+
+#content-1 {
+    height: 500px;
+    position: relative;
+    width: 100%;
+}
+
+#content-2 {
+    position: relative;
+    font-size: 22px;
+    line-height: 32px;
+    text-align: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#footer {
+    min-height: 200px;
+    width: 100%;
+    background-color: #400f0f;
+    color: #ccc;
+    padding: 10px 30px;
+    display: inline-flex;
+    box-sizing: border-box;
+}
+
+#social-list {
+    display: grid;
+}
+
+#social-list > a {
+    text-decoration: none;
+    color: #ccc;
+    line-height: 32px;
+    display: flex;
+    font-weight: 800;
+}
+
+#social-list > a > img {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 32px;
+    height: 32px
+}
+
+#footer h1 {
+    margin-top: 0px;
+}
+
+.footer-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 21px 0;
+}
+
+/* BOOTSTRAP OVERRIDE */
+.nav-link {
+    height: 50px;
+}
+
+.navbar-toggler {
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    z-index: 10;
+}
+
+.dropdown > a {
+    color: #eee !important;
+}
+
+.dropdown-menu {
+    background-color: #777;
+    margin-top: 0px !important;
+    border: none;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.dropdown-item {
+    color: #eee !important;
+    font-size: 20px;
+}
+
+.dropdown-item:hover {
+    background-color: #999;
+}
+
+.carousel-control-prev-icon {
+    background-color: #947a79;
+    border-radius: 50%;
+}
+
+.carousel-control-next-icon {
+    background-color: #947a79;
+    border-radius: 50%;
+}

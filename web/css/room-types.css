@@ -1,0 +1,203 @@
+/* MADE BY FRANCESCO DE PALMA */
+
+#content {
+    display: flex;    
+}
+
+#left-bar {
+    height: fit-content;
+    background-color: #947a79;
+    border-radius: 5px;
+    position: sticky;
+    top: 100px;
+}
+
+#left-bar > .line {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.left-bar-item {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 30px;
+}
+
+.left-bar-item:first-child {
+    border-radius: 5px 5px 0 0;
+}
+
+.left-bar-item:last-child {
+    border-radius: 0 0 5px 5px;
+}
+
+.left-bar-item:hover {
+    background-color: #591414;
+}
+
+.left-bar-item > a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.left-bar-item > a > div {
+    width: 100%;
+}
+
+@media screen and (max-width: 1199px){
+    #left-bar-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        z-index: 10;
+        transition: transform 1s;
+        left: -277px;
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 314px) {
+    #left-bar-container {
+        width: 190px;
+        left: -177px;
+    }
+
+    #menu-button {
+        top: 230px !important;
+    }
+    #menuIsOpen:checked ~ #left-bar-container,
+    #menuIsOpen:checked ~ #menu-button {
+        transform: translate(177px, 0px) !important;
+    }
+}
+
+#closeMenu {
+    margin-top: 7px;
+}
+
+#openMenu {
+    margin-top: 7px;
+}
+
+#menu-button {
+    width: 32px;
+    position: fixed;
+    top: 252px;
+    left: 0px;
+    transition: transform 1s;
+    z-index: 10;
+    background: #947a79;
+    border-radius: 0 100% 100% 0;
+}
+
+@media screen and (max-width: 767px) {
+    #menu-button {
+        top: 203px;
+    }
+}
+
+#menuIsClose:checked ~ #menu-button > #closeMenu,
+#menuIsOpen:checked ~ #menu-button > #openMenu {
+    display: none;
+}
+
+#menuIsOpen:checked ~ #menu-button > #closeMenu,
+#menuIsClose:checked ~ #menu-button > #openMenu {
+    display: block;
+}
+
+@media screen and (max-width: 1199px){
+    #menuIsOpen:checked ~ #left-bar-container,
+    #menuIsOpen:checked ~ #menu-button {
+        transform: translate(277px, 0px);
+    }
+}
+
+
+.room-card {
+    position: relative;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    scroll-margin-top: 175px;
+}
+
+.image-room {
+    border-radius: 5px 0 0 5px;
+    object-fit: cover;
+}
+
+@media screen  and (max-width: 767px){
+    .image-room {
+        max-height: 350px;
+        border-radius: 5px 5px 0 0;
+    }
+}
+
+.image-descr {
+    box-sizing: border-box;
+}
+
+.image-descr > h1 {
+    font-size: 32px;
+}
+
+.image-descr > p {
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+@media screen  and (max-width: 600px){
+    .image-descr > h1 {
+        font-size: 24px;
+    }
+
+    .image-descr > p {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .room-price {
+        font-size: 18px !important;
+    }
+
+    .room-extras {
+        font-size: 18px !important;
+    }
+}
+
+@media screen  and (max-width: 250px){
+    .room-price {
+        font-size: 14px !important;
+    }
+
+    .room-extras {
+        font-size: 14px !important;
+    }
+}
+
+.room-price {
+    align-items: center;
+    font-size: 22px;
+    display: flex;
+}
+
+.dollar {
+    color:  green;
+    font-size: 28px;
+}
+
+.room-extras {
+    align-items: center;
+    font-size: 22px;
+    display: flex;
+}
+
+.room-extras > img {
+    height: 34px;
+    width: 34px;
+    margin-right: 10px;
+}

@@ -1,0 +1,94 @@
+/* MADE BY FRANCESCO DE PALMA */
+
+.main-content {
+    position: absolute;
+    height: 500px;
+    width: 100%;
+}
+
+#content-2-container {
+    padding: 59px 0;
+    background-color: white;
+}
+
+#content-3-container {
+    padding: 59px 0;
+    background-color: white;
+}
+
+#content-3 {
+    position: relative;
+    font-size: 22px;
+    line-height: 32px;
+    text-align: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main-content-image {
+    background-image: url('../images/main.entrance.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+}
+
+#main-content-text {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 100px;
+}
+
+#main-content-text-title {
+    font-size: 40px;
+}
+
+#main-content-text-description {
+    font-size: 28px;
+    line-height: 46px;
+    margin-top: 56px;
+}
+
+@media screen and (max-width: 576px){
+    #content-1 {
+        height: 300px;
+    }
+
+    .main-content {
+        height: 300px;
+    }
+
+    #main-content-text-title {
+        font-size: 30px;
+    }
+
+    #main-content-text {
+        padding: 50px 20px;
+    }
+
+    #main-content-text-description {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    #content-2, #content-3 {
+        font-size: 16px;
+        line-height: 22px;
+    }
+}
+
+@media screen and (max-width: 380px){
+    #main-content-text-title {
+        font-size: 24px;
+    }
+
+    #main-content-text-description {
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+.carousel-item > img {
+    max-height: 500px;
+    object-fit: contain;
+}
