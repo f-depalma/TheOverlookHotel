@@ -35,7 +35,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Check-out">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" text="New" onAction="#clickCheckoutNew"/>
                                 <MenuItem mnemonicParsing="false" text="Find"/>
                             </items>
                         </Menu>
@@ -55,6 +55,7 @@
             <children>
                 <fx:include fx:id="booking" managed="false" source="booking.fxml" visible="false"/>
                 <fx:include fx:id="checkin" managed="false" source="checkin.fxml" visible="false"/>
+                <fx:include fx:id="checkout" managed="false" source="checkout.fxml" visible="false"/>
                 <fx:include fx:id="availability" source="availability.fxml"/>
             </children>
         </VBox>

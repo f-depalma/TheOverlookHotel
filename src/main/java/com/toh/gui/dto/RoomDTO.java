@@ -7,7 +7,7 @@ public class RoomDTO {
     private SimpleIntegerProperty id = new SimpleIntegerProperty();
     private SimpleStringProperty number = new SimpleStringProperty();
     private SimpleStringProperty roomType = new SimpleStringProperty();
-    private SimpleStringProperty beds = new SimpleStringProperty();
+    private SimpleIntegerProperty beds = new SimpleIntegerProperty();
     private SimpleStringProperty smoking = new SimpleStringProperty();
     private SimpleStringProperty price = new SimpleStringProperty();
 
@@ -35,15 +35,15 @@ public class RoomDTO {
         this.roomType.set(roomType);
     }
 
-    public String getBeds() {
+    public Integer getBeds() {
         return beds.get();
     }
 
-    public SimpleStringProperty bedsProperty() {
+    public SimpleIntegerProperty bedsProperty() {
         return beds;
     }
 
-    public void setBeds(String beds) {
+    public void setBeds(Integer beds) {
         this.beds.set(beds);
     }
 

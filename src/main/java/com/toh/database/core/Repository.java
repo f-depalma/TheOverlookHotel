@@ -27,8 +27,20 @@ public class Repository<T extends BaseEntity> {
         return data.stream().filter(f -> f.getId() == id).findFirst().orElse(null);
     }
 
+    public T findById(int id, boolean copy) {
+        return data.stream().filter(f -> f.getId() == id).findFirst().orElse(null);
+    }
+
     public ArrayList<T> getAll() {
-        return data;
+            return data;
+    }
+
+    public ArrayList<T> getAll(boolean copy) {
+        if (copy) {
+            return new ArrayList<T>(data);
+        } else {
+            return data;
+        }
     }
 
     public void save(T entity) throws EntityNotValidException {

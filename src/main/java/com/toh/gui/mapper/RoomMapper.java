@@ -13,10 +13,8 @@ public class RoomMapper {
         dto.setId(room.getId());
         dto.setNumber(room.getNumber());
         dto.setRoomType(room.getRoomType().getName());
-        dto.setBeds(room.getBeds().toString());
-        if (room.isSmoking() != null) {
-            dto.setSmoking(room.isSmoking()? "Yes": "No");
-        }
+        dto.setBeds(room.getBeds());
+        dto.setSmoking(room.isSmoking() != null && room.isSmoking() ? "Yes" : "No");
         dto.setPrice(room.getPrice().toString());
         return dto;
     }

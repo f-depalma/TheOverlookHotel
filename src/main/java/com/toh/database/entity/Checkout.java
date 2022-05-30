@@ -7,7 +7,7 @@ import com.toh.database.core.Exceptions.UnsavedEntityException;
 public class Checkout extends BaseEntity {
     private final MappedEntity<Booking> booking = new MappedEntity<>(Booking.class);
     private Double price;
-    private Integer discount;
+    private Double discount;
 
     static {
         notNullFields(Checkout.class, "booking", "price");
@@ -40,11 +40,11 @@ public class Checkout extends BaseEntity {
         this.price = price;
     }
 
-    public Integer getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 }

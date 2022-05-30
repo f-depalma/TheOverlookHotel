@@ -5,5 +5,12 @@
     "roomType": 1,
     "beds": 3,
     "price": 200.99
+  },
+  {
+    "id": 2,
+    "number": "K41",
+    "roomType": 1,
+    "beds": 2,
+    "price": 100.99
   }
 ]

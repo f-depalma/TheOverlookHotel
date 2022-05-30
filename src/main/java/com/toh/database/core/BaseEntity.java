@@ -4,9 +4,11 @@ import com.toh.database.core.field.Date;
 import com.toh.database.core.field.MappedField;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class BaseEntity {
     private Integer id;

@@ -2,6 +2,9 @@ package com.toh.database.core.field;
 
 import com.toh.database.core.Exceptions.DateFormatException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class Date {
     private int day;
     private int month;
@@ -87,7 +90,23 @@ public class Date {
         }
     }
 
+    public boolean equals(Date date) {
+        return date.day == day && date.month == month && date.year == year;
+    }
+
     public boolean isBetween(Date date1, Date date2) {
-        return isAfterThen(date1) != isAfterThen(date2);
+        return equals(date1) || equals(date2) || isAfterThen(date1) != isAfterThen(date2);
+    }
+
+    public boolean isToday() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date today = new java.util.Date();
+        boolean ret = false;
+        try {
+            ret = equals(new Date(dateFormat.format(today)));
+        } catch (DateFormatException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 }

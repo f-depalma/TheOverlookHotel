@@ -63,7 +63,7 @@
                <children>
                   <TextField fx:id="name" promptText="Name" />
                   <TextField fx:id="phoneNumber" layoutX="10.0" layoutY="10.0" promptText="Phone Number" />
-                  <TextField fx:id="birthday" layoutX="10.0" layoutY="10.0" promptText="Birthday" />
+                  <DatePicker fx:id="birthday" promptText="Birthday" />
                   <TextField fx:id="address" layoutX="159.0" layoutY="10.0" promptText="Address" />
                   <TextField fx:id="nationality" layoutX="159.0" layoutY="10.0" promptText="Nationality" />
                   <Button mnemonicParsing="false" onAction="#ClickOnAddCheckIn" prefWidth="70.0" text="Add" />
