@@ -1,5 +1,7 @@
 package com.toh.database.core.field;
 
+import com.toh.database.core.Exceptions.DateFormatException;
+
 public class Date {
     private int day;
     private int month;
@@ -15,15 +17,22 @@ public class Date {
         this.day = day;
     }
 
-    public Date(String date) {
+    public Date(String date) throws DateFormatException {
         set(date);
     }
 
-    public void set(String date) {
-        String[] splitted = date.split("/");
-        day = Integer.parseInt(splitted[0]);
-        month = Integer.parseInt(splitted[1]);
-        year = Integer.parseInt(splitted[2]);
+    public void set(String date) throws DateFormatException {
+        try {
+            String[] splitted = date.split("/");
+            day = Integer.parseInt(splitted[0]);
+            month = Integer.parseInt(splitted[1]);
+            if (splitted[2].length() < 4) {
+                throw new DateFormatException();
+            }
+            year = Integer.parseInt(splitted[2]);
+        } catch (Exception e) {
+            throw new DateFormatException();
+        }
     }
 
     public int getDay() {
@@ -59,7 +68,7 @@ public class Date {
     }
 
     public boolean isValid() {
-        return day != 0 && month != 0 && year != 0;
+        return day != 0 && month != 0 && year != 0 && year / 1000 > 1;
     }
 
     public boolean isAfterThen(Date date) {

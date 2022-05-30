@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane prefHeight="970.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.toh.gui.controller.CheckinController">
+<Pane prefHeight="970.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.toh.gui.controller.CheckinController">
     <children>
       <VBox prefHeight="850.0" prefWidth="1200.0">
          <children>
             <HBox prefHeight="150.0" prefWidth="1200.0" spacing="10.0">
                <children>
-                  <TextField fx:id="nameInput" promptText="Name">
+                  <TextField fx:id="nameInput" promptText="Guest name">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -65,11 +66,12 @@
                   <TextField fx:id="birthday" layoutX="10.0" layoutY="10.0" promptText="Birthday" />
                   <TextField fx:id="address" layoutX="159.0" layoutY="10.0" promptText="Address" />
                   <TextField fx:id="nationality" layoutX="159.0" layoutY="10.0" promptText="Nationality" />
-                  <Button mnemonicParsing="false" onAction="#ClickOnAddCheckIn" text="Add" />
-                  <Button fx:id="delete" mnemonicParsing="false" onAction="#clickOnDeleteCheckIn" text="Delete" />
-                  <Button fx:id="save" disable="true" mnemonicParsing="false" onAction="#clickOnSaveButton" prefHeight="25.0" prefWidth="58.0" text="Save">
+                  <Button mnemonicParsing="false" onAction="#ClickOnAddCheckIn" prefWidth="70.0" text="Add" />
+                  <Button fx:id="delete" mnemonicParsing="false" onAction="#clickOnDeleteCheckIn" prefWidth="80.0" text="Delete" />
+                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  <Button fx:id="save" disable="true" mnemonicParsing="false" onAction="#clickOnSaveButton" prefHeight="25.0" prefWidth="70.0" text="Save">
                      <HBox.margin>
-                        <Insets left="220.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
                </children>
