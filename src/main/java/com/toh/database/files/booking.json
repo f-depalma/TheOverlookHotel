@@ -5,33 +5,5 @@
     "guest": 7,
     "arrive": "10/10/2020",
     "departure": "14/10/2020"
-  },
-  {
-    "id": 3,
-    "room": 6,
-    "guest": 9,
-    "arrive": "10/10/2020",
-    "departure": "14/10/2020"
-  },
-  {
-    "id": 4,
-    "room": 7,
-    "guest": 10,
-    "arrive": "10/10/2020",
-    "departure": "14/10/2020"
-  },
-  {
-    "id": 5,
-    "room": 8,
-    "guest": 11,
-    "arrive": "10/10/2020",
-    "departure": "14/10/2020"
-  },
-  {
-    "id": 7,
-    "room": 6,
-    "guest": 6,
-    "arrive": "10/10/2020",
-    "departure": "14/10/2020"
   }
 ]

@@ -26,7 +26,7 @@ public class MappedList<T extends BaseEntity> extends MappedField<T> {
                 if (entity != null) {
                     entities.add(entity);
                 } else {
-                    ids.remove(id);
+                    ids.removeIf(a -> a.equals(id));
                 }
             }
             return entities;
