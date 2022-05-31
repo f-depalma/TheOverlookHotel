@@ -27,12 +27,8 @@ public class Repository<T extends BaseEntity> {
         return data.stream().filter(f -> f.getId() == id).findFirst().orElse(null);
     }
 
-    public T findById(int id, boolean copy) {
-        return data.stream().filter(f -> f.getId() == id).findFirst().orElse(null);
-    }
-
     public ArrayList<T> getAll() {
-            return data;
+        return data;
     }
 
     public ArrayList<T> getAll(boolean copy) {
@@ -44,18 +40,18 @@ public class Repository<T extends BaseEntity> {
     }
 
     public void save(T entity) throws EntityNotValidException {
-        if (entity.isValid()) {
-            if (!_delete(entity.getId())) {
+        if (entity.isValid()) { // if the entity is valid
+            if (!_delete(entity.getId())) { // if it cannot be deleted from the list means is a new entity else delete it and save again into the list
                 entity.setId(generateId());
             }
-            data.add(entity);
+            data.add(entity); // add to the list
         } else {
             throw new EntityNotValidException(entity);
         }
     }
 
     public void flush() {
-        connector.flush(data);
+        connector.flush(data); // update the file
     }
 
     public void saveAndFlush(T entity) throws EntityNotValidException {
@@ -69,36 +65,36 @@ public class Repository<T extends BaseEntity> {
 
     public void delete(Integer id) throws ConstraintException {
         String fieldName = this.type.getSimpleName().toLowerCase();
-        List<Class<?>> constrainstList = BaseEntity.getNotNullField()
-                .entrySet()
-                .stream()
-                .filter(entry -> entry.getValue().stream().anyMatch(
-                        field -> field.equals(fieldName) || field.equals(fieldName + "List"))) // I get only the entity class that have this entity as not null field
+        List<Class<?>> constrainstList = BaseEntity.getNotNullField().entrySet().stream().filter(entry -> entry.getValue().stream().anyMatch(field -> field.equals(fieldName) || field.equals(fieldName + "List"))) // I get only the entity class that have this entity as not null field
                 .map(entry -> entry.getKey()) // I get the class of them
                 .collect(Collectors.toList());
 
 
-        for (Class<?> type : constrainstList) { // for each class
-            for (Object entity : getRepository(type).getAll()) { // foe each entity of this class
+        for (Class<?> type : constrainstList) { // for each class that have a not null field instanceof this.type
+            for (Object entity : getRepository(type).getAll()) { // for each entity of this classes
                 try {
                     String methodName = "get" + this.type.getSimpleName();
                     Field field;
-                    try {
+
+                    //TODO: maybe it can be written better 84:90
+                    try { // if is not a MappedList
                         field = type.getDeclaredField(fieldName);
-                    } catch (NoSuchFieldException e) {
+                    } catch (NoSuchFieldException e) { // if is a MappedList
                         field = type.getDeclaredField(fieldName + "List");
                     }
 
-                    Class<MappedField> fieldType = (Class<MappedField>) field.getType();
+                    Class<MappedField> fieldType = (Class<MappedField>) field.getType(); // get the field class
 
+                    // I check only the MappedEntity field becouse I'm trying to delete its reference id;
                     if (fieldType.equals(MappedEntity.class)) {
-                        if (((BaseEntity) type.getDeclaredMethod(methodName).invoke(entity)).getId().equals(id)) { // I retrive the id value of the class of the entity deleted
+                        // If the entity is related to the deleted object throw an exception
+                        if (((BaseEntity) type.getDeclaredMethod(methodName).invoke(entity)).getId().equals(id)) { // I retrieve the id value of the class of the entity deleted
                             throw new ConstraintException((BaseEntity) entity, field.getName());
                         }
                     } else if (fieldType.equals(MappedList.class)) {
                         methodName += "List";
                         ArrayList<BaseEntity> entityList = ((ArrayList<BaseEntity>) type.getDeclaredMethod(methodName).invoke(entity));
-
+//                      If the only reference in the list is the id of the deleted entity
                         if (entityList.stream().anyMatch(e -> e.getId().equals(id)) && entityList.size() == 1) {
                             throw new ConstraintException((BaseEntity) entity, field.getName());
                         }
@@ -108,8 +104,7 @@ public class Repository<T extends BaseEntity> {
                 }
             }
         }
-
-        _delete(id);
+        _delete(id); // if no ConstraintException have been thrown delete the entity
     }
 
     public boolean contains(Integer id) {
@@ -129,10 +124,8 @@ public class Repository<T extends BaseEntity> {
     public static Repository getRepository(Class<?> type) {
         Repository repository = null;
         try {
-            String repositoryName =
-                    MappedField.class.getPackageName()
-                            .replace("field", type.getSimpleName() + "Repository")
-                            .replace("core", "repository");
+            // do not move the repositories from its path
+            String repositoryName = MappedField.class.getPackageName().replace("field", type.getSimpleName() + "Repository").replace("core", "repository");
 
             repository = (Repository) Class.forName(repositoryName).getMethod("execute").invoke(null);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {

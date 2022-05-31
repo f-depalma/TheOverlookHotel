@@ -60,12 +60,14 @@ public class BookingController implements Initializable {
     }
 
     private void setFacilityCombo() {
+        //get all the available facility specified in the roomType of the selected room
         RoomDTO roomDTO = roomList.getSelectionModel().getSelectedItem();
-        ArrayList<Facility> facility = RoomRepository.execute().findById(roomDTO.getId()).getRoomType().getFacilityList();
-        facilityCombo.setItems(
-                FXCollections.observableList(
-                        FacilityMapper.entityToDTOList(
-                                facility)));
+        if (roomDTO != null) {
+            ArrayList<Facility> facility = RoomRepository.execute().findById(roomDTO.getId()).getRoomType().getFacilityList();
+            facilityCombo.setItems(
+                    FXCollections.observableList(
+                            FacilityMapper.entityToDTOList(facility)));
+        }
     }
 
     @FXML
@@ -77,6 +79,7 @@ public class BookingController implements Initializable {
     @FXML
     protected void find() {
         try {
+            // find all the available room in the date range
             ArrayList<Room> rooms =
                     JavaFXUtils.findAvailableRoom(
                             JavaFXUtils.getDate(arrive),
@@ -106,10 +109,12 @@ public class BookingController implements Initializable {
 
     @FXML
     protected void save() {
+        // create and save the booking
         Booking b = new Booking();
         RoomDTO roomDTO = roomList.getSelectionModel().getSelectedItem();
         if (roomDTO != null)
             b.setRoom(RoomRepository.execute().findById(roomDTO.getId()));
+        // create the new guest
         Guest g = new Guest(gName.getText(), gPhoneNumber.getText());
         g.setBirthday(gBirthday.getEditor().getText());
         g.setHomeAddress(gAddress.getText());
@@ -128,6 +133,7 @@ public class BookingController implements Initializable {
             BookingRepository.execute().saveAndFlush(b);
             GuestRepository.execute().flush();
 
+            // clear all
             good.setContentText("Saved");
             good.show();
 

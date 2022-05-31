@@ -16,6 +16,7 @@ public class Booking extends BaseEntity {
     private Date departure = new Date();
     private final MappedList<Facility> facilityList = new MappedList<>(Facility.class);
 
+    // set the not null field only at loading
     static {
         notNullFields(Booking.class, "orom", "guest", "arrive", "departure");
     }

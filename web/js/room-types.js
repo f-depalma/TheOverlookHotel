@@ -1,5 +1,5 @@
 
-$.get("../manager/src/main/resources/com/toh/database/core/room_type.json", function (data, status) {
+$.get("../manager/src/main/java/com/toh/database/core/data/room_type.json", function (data, status) {
     data.forEach(type => {
         addToLeftBar(type);
         addType(type);
@@ -30,7 +30,7 @@ function addType(type) {
         '<span class="dollar">$</span>' +
         type.price + ' per night</div>';
 
-    $.get("../manager/src/main/resources/com/toh/database/core/facility.json", function (data, status) {
+    $.get("../manager/src/main/java/com/toh/database/core/data/facility.json", function (data, status) {
 
         if (type['facilityList'])
             for (let id of type.facilityList) {

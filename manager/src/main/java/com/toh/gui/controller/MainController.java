@@ -38,6 +38,7 @@ public class MainController {
 
 
     private void setVisible(Pane p) {
+        // set p visible and hide the other Pane in the class
         Arrays.stream(MainController.class.getDeclaredFields())
                 .filter(f -> f.getType().equals(Pane.class))
                 .forEach(f -> {

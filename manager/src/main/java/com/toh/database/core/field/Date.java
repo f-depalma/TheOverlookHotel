@@ -91,6 +91,22 @@ public class Date {
         }
     }
 
+    public boolean isBeforeThen(Date date) {
+        if (year == date.year) {
+            if (month == date.month) {
+                if (day == date.day) {
+                    return false;
+                } else {
+                    return day < date.day;
+                }
+            } else {
+                return month < date.month;
+            }
+        } else {
+            return year < date.year;
+        }
+    }
+
     public boolean equals(Date date) {
         return date.day == day && date.month == month && date.year == year;
     }

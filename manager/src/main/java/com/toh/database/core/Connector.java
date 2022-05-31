@@ -35,7 +35,6 @@ public class Connector<T extends BaseEntity> {
         ArrayList<T> list = new ArrayList<>();
 
         try {
-            System.out.println(filePath);
             // open the resouce and start reading it
             FileInputStream fileIn = new FileInputStream(filePath + fileName);
             Scanner read = new Scanner(fileIn);
@@ -153,27 +152,28 @@ public class Connector<T extends BaseEntity> {
             FileOutputStream fileOut;
 
             try {
+                // I override the file
                 fileOut = new FileOutputStream(filePath + fileName);
                 PrintWriter write = new PrintWriter(fileOut);
-                write.println("[");
+                write.println("["); // open the list
                 int i;
-                for (i = 0; i < list.size() - 1; i++) {
+                for (i = 0; i < list.size() - 1; i++) { // loop on the entity
                     try {
-                        checkValidity(list.get(i));
-                        write.print(objToJson(list.get(i), "  "));
+                        checkValidity(list.get(i)); // check if they are valid
+                        write.print(objToJson(list.get(i), "  ")); // convert entity into json
                         write.println(",");
                     } catch (EntityNotValidException e) {
                         e.printStackTrace();
                     }
                 }
-                try {
+                try { // write the last one without the common
                     checkValidity(list.get(i));
                     write.print(objToJson(list.get(i), "  "));
                 } catch (EntityNotValidException e) {
                     e.printStackTrace();
                 }
                 write.println();
-                write.print("]");
+                write.print("]"); // close the list
                 write.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -188,40 +188,40 @@ public class Connector<T extends BaseEntity> {
     }
 
     public String objToJson(Object obj, String padding) {
-        StringBuilder json = new StringBuilder(padding + "{\n");
+        StringBuilder json = new StringBuilder(padding + "{\n"); // open the object
 
-        for (Field field : fields) {
+        for (Field field : fields) { // loop on the field
             try {
                 field.setAccessible(true);
                 Object value = field.get(obj);
 
-                if (field.getType().equals(MappedList.class)) {
+                if (field.getType().equals(MappedList.class)) { // if is a list of id
                     @SuppressWarnings("unchecked")
                     ArrayList<Integer> ids = (ArrayList<Integer>) MappedList.class.getMethod("getIds").invoke(value);
-                    if (ids != null && ids.size() > 0) {
-                        json.append(padding).append("  \"").append(field.getName()).append("\": [\n");
+                    if (ids != null && ids.size() > 0) { // if the list is not empty
+                        json.append(padding).append("  \"").append(field.getName()).append("\": [\n"); // write the field name and the open of the list
 
-                        for (int i = 0; i < ids.size(); i++) {
-                            json.append(padding).append("    ").append(ids.get(i)).append(i + 1 < ids.size() ? "," : "").append("\n");
+                        for (int i = 0; i < ids.size(); i++) { // loop on the ids in the list
+                            json.append(padding).append("    ").append(ids.get(i)).append(i + 1 < ids.size() ? "," : "").append("\n"); // write the id
                         }
-                        json.append(padding).append("  ],\n");
+                        json.append(padding).append("  ],\n"); // close the list
                     }
-                } else if (field.getType().equals(MappedEntity.class)) {
+                } else if (field.getType().equals(MappedEntity.class)) { // if is one to one relation (reference id to another entity)
                     Integer id = (Integer) MappedEntity.class.getMethod("getId").invoke(value);
-                    if (id != null) {
-                        json.append(padding).append("  \"").append(field.getName()).append("\": ").append(id).append(",\n");
+                    if (id != null) { // if is not null
+                        json.append(padding).append("  \"").append(field.getName()).append("\": ").append(id).append(",\n"); // write the field name and the id
                     }
-                } else if (field.getType().equals(Date.class)) {
-                    if (value.toString() != null) {
-                        json.append(padding).append("  \"").append(field.getName()).append("\": \"").append(value).append("\",\n");
+                } else if (field.getType().equals(Date.class)) { // if is a date
+                    if (value.toString() != null) { // if is not null
+                        json.append(padding).append("  \"").append(field.getName()).append("\": \"").append(value).append("\",\n"); // write the field name and the date
                     }
-                } else {
-                    if (value != null) {
-                        json.append(padding).append("  \"").append(field.getName()).append("\": ");
-                        if (Number.class.isAssignableFrom(field.getType())) {
-                            json.append(value).append(",\n");
+                } else { // other type of value (String | Number)
+                    if (value != null) { //if is not null
+                        json.append(padding).append("  \"").append(field.getName()).append("\": "); // write the fild name
+                        if (Number.class.isAssignableFrom(field.getType())) { // if is number
+                            json.append(value).append(",\n"); // write the value
                         } else {
-                            json.append("\"").append(value).append("\",\n");
+                            json.append("\"").append(value).append("\",\n"); // else add the " before and after the value
                         }
                     }
                 }
@@ -229,7 +229,7 @@ public class Connector<T extends BaseEntity> {
                 e.printStackTrace();
             }
         }
-        json = new StringBuilder(json.substring(0, json.length() - 2) + "\n" + padding + "}");
+        json = new StringBuilder(json.substring(0, json.length() - 2) + "\n" + padding + "}"); // close the object
         return json.toString();
     }
 }

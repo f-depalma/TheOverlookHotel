@@ -5,6 +5,7 @@ import com.toh.database.entity.Booking;
 
 
 public class BookingRepository extends Repository<Booking> {
+    // singleton
     private static BookingRepository instance;
 
     private BookingRepository() {

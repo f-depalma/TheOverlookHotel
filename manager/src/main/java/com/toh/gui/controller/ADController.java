@@ -20,12 +20,14 @@ public class ADController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // get the arrival list
         arrive.setItems(FXCollections.observableList(
                 BookingRepository.execute().getAll().stream()
                         .filter(b -> b.getArrive().isToday())
                         .map(b -> RoomMapper.entityToDTO(b.getRoom()))
                         .collect(Collectors.toList())));
 
+        // get the departure list
         departure.setItems(FXCollections.observableList(
                 BookingRepository.execute().getAll().stream()
                         .filter(b -> b.getDeparture().isToday())

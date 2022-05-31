@@ -10,5 +10,11 @@
     "booking": 7,
     "price": 100.089,
     "discount": 10.0
+  },
+  {
+    "id": 3,
+    "booking": 5,
+    "price": 208.089,
+    "discount": 10.0
   }
 ]

@@ -39,9 +39,11 @@ public class CheckoutController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // find al the room that have a related booking with departure == today
         ArrayList<RoomDTO> roomList =
                 BookingRepository.execute().getAll().stream()
-                        .filter(b -> b.getDeparture().isToday())
+                        .filter(b -> b.getDeparture().isToday()
+                                && CheckoutRepository.execute().getAll().stream().noneMatch(c -> c.getBooking().equals(b.getId())))
                         .map(b -> RoomMapper.entityToDTO(b.getRoom()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -51,6 +53,7 @@ public class CheckoutController implements Initializable {
     @FXML
     protected void roomSelected() {
         try {
+            // find the booking relate to the room for today
             booking = BookingRepository.execute().getAll().stream()
                     .filter(b -> b.getDeparture().isToday()
                             && b.getRoom().getId().equals(rooms.getSelectionModel().getSelectedItem().getId()))
@@ -65,6 +68,7 @@ public class CheckoutController implements Initializable {
 
     @FXML
     protected void calculatePrice() {
+        // price is calculate as ((price of the room) + (price of the facility)) * (discount/100)
         if (booking != null) {
             double priceValue = booking.getRoom().getPrice();
             for (Facility f : booking.getFacilityList()) {
@@ -91,6 +95,7 @@ public class CheckoutController implements Initializable {
 
     @FXML
     protected void save() {
+        // save the checkout
         if (!price.getText().equals("")) {
             Checkout c = new Checkout();
             c.setBooking(booking);
@@ -98,6 +103,7 @@ public class CheckoutController implements Initializable {
             c.setDiscount(Double.valueOf(discount.getText()));
             try {
                 CheckoutRepository.execute().saveAndFlush(c);
+                // clear
                 rooms.getItems().removeIf(r -> true);
                 discount.setText("0");
                 price.setText("");

@@ -64,5 +64,16 @@
     "facilityList": [
       2
     ]
+  },
+  {
+    "id": 9,
+    "room": 3,
+    "guest": 11,
+    "arrive": "31/5/2022",
+    "arriveHour": 10,
+    "departure": "1/6/2022",
+    "facilityList": [
+      1
+    ]
   }
 ]

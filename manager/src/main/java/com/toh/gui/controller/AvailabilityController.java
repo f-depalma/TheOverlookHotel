@@ -50,11 +50,13 @@ public class AvailabilityController implements Initializable {
     @FXML
     protected void find() {
         try {
+            // get the available room list
             ArrayList<Room> rooms =
                     JavaFXUtils.findAvailableRoom(
                             JavaFXUtils.getDate(dateFrom),
                             JavaFXUtils.getDate(dateTo));
 
+            // filter by price
             if (!priceMin.getText().equals("")) {
                 try {
                     rooms = rooms.stream()

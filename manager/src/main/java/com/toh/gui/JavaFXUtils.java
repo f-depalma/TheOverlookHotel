@@ -6,7 +6,6 @@ import com.toh.database.entity.Room;
 import com.toh.database.repository.BookingRepository;
 import com.toh.database.repository.RoomRepository;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
@@ -28,25 +27,27 @@ public class JavaFXUtils {
     }
 
     public static void setDatePickerFormat(DatePicker dp) {
-        dp.setConverter(new StringConverter<LocalDate>() {
+        dp.setConverter(new StringConverter<>() {
             String pattern = "dd/MM/yyyy";
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
             {
                 dp.setPromptText(pattern.toLowerCase());
             }
 
-            @Override public String toString(LocalDate date) {
+            @Override
+            public String toString(LocalDate date) {
                 if (date != null) {
-                    return dateFormatter.format(date);
+                    return formatter.format(date);
                 } else {
                     return "";
                 }
             }
 
-            @Override public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
+            @Override
+            public LocalDate fromString(String date) {
+                if (date != null && !date.isEmpty()) {
+                    return LocalDate.parse(date, formatter);
                 } else {
                     return null;
                 }
@@ -55,13 +56,15 @@ public class JavaFXUtils {
     }
 
     public static ArrayList<Room> findAvailableRoom(Date from, Date to) {
+        //find all the unavailable room in the interval from - to
         ArrayList<Integer> unavailableRoomsId = BookingRepository.execute().getAll().stream()
-                .filter(b -> b.getArrive().isBetween(from, to)
-                        || b.getDeparture().isBetween(from, to)
-                        || b.getArrive().isAfterThen(from) != b.getDeparture().isAfterThen(to))
+                .filter(b -> (!b.getArrive().isBeforeThen(from) && b.getArrive().isBeforeThen(to))
+                        || (b.getDeparture().isAfterThen(from) && !b.getDeparture().isAfterThen(to))
+                        || (!b.getArrive().isAfterThen(from) && !b.getDeparture().isBeforeThen(to)))
                 .map(b -> b.getRoom().getId())
                 .collect(Collectors.toCollection(ArrayList::new));
 
+        //remove all the unavailable room
         ArrayList<Room> rooms = RoomRepository.execute().getAll(true);
         rooms.removeIf(r -> unavailableRoomsId.contains(r.getId()));
 

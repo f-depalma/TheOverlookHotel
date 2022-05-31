@@ -55,6 +55,7 @@ public class CheckinController implements Initializable {
     }
 
     public void ClickOnAddCheckIn() {
+        //add the new guest to the table
         Guest guest = new Guest();
         guest.setPhoneNumber(phoneNumber.getText());
         guest.setNationality(nationality.getText());
@@ -77,12 +78,14 @@ public class CheckinController implements Initializable {
     }
 
     public void clickOnDeleteCheckIn() {
+        // delete the guest from the table
         GuestDTO itemSelected;
         itemSelected = table.getSelectionModel().getSelectedItem();
 
         try {
             GuestRepository.execute().delete(itemSelected.getId());
         } catch (ConstraintException e) {
+            //if is the guest that booked the room throw the error and remove only from the table
         } finally {
             table.getItems().remove(itemSelected);
         }
@@ -90,9 +93,11 @@ public class CheckinController implements Initializable {
 
     @FXML
     public void clickOnSearchButton() {
+        // find all the booking by the guest name with arrive date = today and that does not have a checkin related
         bookings = BookingRepository.execute().getAll().stream()
                 .filter(b -> b.getGuest().getName().equals(nameInput.getText())
-                        && b.getArrive().isToday())
+                        && b.getArrive().isToday()
+                        && CheckinRepository.execute().getAll().stream().noneMatch(c -> c.getBooking().getId().equals(b.getId())))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         ArrayList<RoomDTO> rooms = bookings.stream()
@@ -106,7 +111,7 @@ public class CheckinController implements Initializable {
     @FXML
     public void selectBooking() {
         RoomDTO itemSelected = roomComboBox.getSelectionModel().getSelectedItem();
-        if(itemSelected != null) {
+        if (itemSelected != null) {
             table.getItems().add(GuestMapper.entityToDTO(bookings.stream()
                     .filter(b -> b.getRoom().getId().equals(itemSelected.getId()))
                     .findFirst().orElse(null).getGuest()));
@@ -116,16 +121,22 @@ public class CheckinController implements Initializable {
 
     @FXML
     public void clickOnSaveButton() {
+        //create checkin
         Checkin checkin = new Checkin();
+        //find the booking of the room selected
         checkin.setBooking(bookings.stream()
-                .filter(b -> b.getRoom().getId().equals(roomComboBox.getSelectionModel().getSelectedItem().getId()))
+                .filter(b -> b.getRoom().getId().equals(roomComboBox.getSelectionModel().getSelectedItem().getId())
+                        && b.getArrive().isToday())
                 .findFirst().orElse(null));
+        // add the guest to the checkin
         checkin.setGuestList(
                 GuestMapper.DTOToEntityList(new ArrayList<>(table.getItems())));
         try {
+            // try to save
             CheckinRepository.execute().saveAndFlush(checkin);
             GuestRepository.execute().flush();
 
+            // clear
             good.setContentText("Saved");
             good.show();
 

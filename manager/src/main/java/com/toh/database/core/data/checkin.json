@@ -14,5 +14,12 @@
       9
     ],
     "booking": 7
+  },
+  {
+    "id": 4,
+    "guestList": [
+      11
+    ],
+    "booking": 9
   }
 ]
