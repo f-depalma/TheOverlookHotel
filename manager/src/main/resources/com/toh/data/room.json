@@ -12,5 +12,12 @@
     "roomType": 1,
     "beds": 2,
     "price": 100.99
+  },
+  {
+    "id": 3,
+    "number": "K100",
+    "roomType": 2,
+    "beds": 1,
+    "price": 500.99
   }
 ]

@@ -4,6 +4,7 @@ import com.toh.database.core.Exceptions.DateFormatException;
 import com.toh.database.core.Exceptions.EntityNotValidException;
 import com.toh.database.core.field.Date;
 import com.toh.database.entity.Booking;
+import com.toh.database.entity.Facility;
 import com.toh.database.entity.Guest;
 import com.toh.database.entity.Room;
 import com.toh.database.repository.BookingRepository;
@@ -56,15 +57,21 @@ public class BookingController implements Initializable {
         JavaFXUtils.dateValidation(gBirthday);
 
         facilityList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        setFacilityCombo();
     }
 
     private void setFacilityCombo() {
+        RoomDTO roomDTO = roomList.getSelectionModel().getSelectedItem();
+        ArrayList<Facility> facility = RoomRepository.execute().findById(roomDTO.getId()).getRoomType().getFacilityList();
         facilityCombo.setItems(
                 FXCollections.observableList(
                         FacilityMapper.entityToDTOList(
-                                FacilityRepository.execute().getAll())));
+                                facility)));
+    }
+
+    @FXML
+    protected void roomSelected() {
+        setFacilityCombo();
+        facilityList.getItems().removeIf(f -> true);
     }
 
     @FXML
