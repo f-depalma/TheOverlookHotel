@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -13,7 +10,7 @@
          <children>
             <ComboBox fx:id="rooms" onAction="#roomSelected" prefWidth="150.0" promptText="Select room" />
             <Region prefHeight="200.0" prefWidth="200.0" />
-            <Label text="Deiscount (%)" />
+            <Label text="Discount (%)" />
             <TextField fx:id="discount" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="Discount (%)" text="0" />
             <Region prefHeight="100.0" prefWidth="200.0" />
             <Button mnemonicParsing="false" onAction="#calculatePrice" text="Calculate price" />

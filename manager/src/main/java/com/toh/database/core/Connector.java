@@ -5,10 +5,7 @@ import com.toh.database.core.field.Date;
 import com.toh.database.core.field.MappedEntity;
 import com.toh.database.core.field.MappedList;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -21,11 +18,12 @@ public class Connector<T extends BaseEntity> {
     private final Class<T> type;
     private final String fileName;
     private final List<Field> fields;
-    private static final String filePath = "./src/main/resources/com/toh/data/";
+    private static final String filePath = "./src/main/java/com/toh/database/core/data/";
 
     public Connector(Class<T> type, String fileName) {
         this.type = type;
         this.fileName = fileName;
+        //get the non-static fields from the entity class and from the BaseEntity
         this.fields = Stream.concat(
                         Arrays.stream(BaseEntity.class.getDeclaredFields())
                                 .filter(f -> !Modifier.isStatic(f.getModifiers())),
@@ -37,9 +35,13 @@ public class Connector<T extends BaseEntity> {
         ArrayList<T> list = new ArrayList<>();
 
         try {
-            Scanner read = new Scanner(Connector.class.getResourceAsStream(fileName));
+            System.out.println(filePath);
+            // open the resouce and start reading it
+            FileInputStream fileIn = new FileInputStream(filePath + fileName);
+            Scanner read = new Scanner(fileIn);
             T obj = null;
             String str;
+            //skip the first row (”[")
             if (read.hasNext()) {
                 read.nextLine();
             }
@@ -47,31 +49,32 @@ public class Connector<T extends BaseEntity> {
             while (read.hasNext()) {
                 str = getNextLine(read);
 
-                if (str.equals("]")) {
+                if (str.equals("]")) { // if is the end of the file
                     read.close();
                     break;
-                } else if (str.equals("{")) {
+                } else if (str.equals("{")) { // if is a new object get the constructor and instantiate it
                     try {
                         obj = type.getConstructor().newInstance();
                     } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                         e.printStackTrace();
                         break;
                     }
-                } else if (str.contains("}")) {
+                } else if (str.contains("}")) { // if is the end of the object add it to the list
                     list.add(obj);
-                } else if (str.contains("[")) {
+                } else if (str.contains("[")) { // if is a list of ids (one to many)
                     String field = str.split(":")[0];
                     ArrayList<Integer> idList = new ArrayList<>();
 
-                    if (!str.contains("]")) {
+                    if (!str.contains("]")) { // if is not an empty list
                         str = getNextLine(read);
-                        while (!str.equals("]")) {
-                            idList.add(Integer.parseInt(str));
+                        while (!str.equals("]")) { // loop while the list is not finish
+                            idList.add(Integer.parseInt(str)); //add the id tu the list
                             str = getNextLine(read);
                         }
                     }
 
                     try {
+                        //set values to the object
                         Field mappedList = type.getDeclaredField(field);
                         mappedList.setAccessible(true);
                         MappedList.class.getMethod("setIds", ArrayList.class)
@@ -79,8 +82,7 @@ public class Connector<T extends BaseEntity> {
                     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
                         e.printStackTrace();
                     }
-
-                } else {
+                } else { // if a String | Number
                     String[] splitted = str.split(":");
                     String field = splitted[0];
                     String value = splitted[1].trim();
@@ -89,9 +91,9 @@ public class Connector<T extends BaseEntity> {
                         Class<?> parClass;
 
                         try {
-                            parClass = type.getDeclaredField(splitted[0]).getType();
+                            parClass = type.getDeclaredField(splitted[0]).getType(); // get the value type from the entity class
                         } catch (NoSuchFieldException e) {
-                            try {
+                            try { // try to find the field into the super class (BaseEntity)
                                 parClass = BaseEntity.class.getDeclaredField(splitted[0]).getType();
                             } catch (NoSuchFieldException ex) {
                                 ex.printStackTrace();
@@ -99,7 +101,7 @@ public class Connector<T extends BaseEntity> {
                             }
                         }
 
-                        try {
+                        try { // set the value to the object
                             if (Integer.class.equals(parClass)) {
                                 type.getMethod(getMethodName(field), parClass)
                                         .invoke(obj, Integer.valueOf(value));
@@ -129,7 +131,7 @@ public class Connector<T extends BaseEntity> {
                     }
                 }
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | FileNotFoundException e) {
             System.out.println("File " + fileName + " not found, or could not be opened");
         }
 
@@ -144,6 +146,7 @@ public class Connector<T extends BaseEntity> {
         return "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
+    // save the entities to the file
     public void flush(ArrayList<T> list) {
         if (list.size() > 0) {
             list.sort(Comparator.comparing(BaseEntity::getId));
