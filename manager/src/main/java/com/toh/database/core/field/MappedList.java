@@ -17,6 +17,7 @@ public class MappedList<T extends BaseEntity> extends MappedField<T> {
 
     @Override
     public ArrayList<T> getValue() {
+        // get the values from the IDs
         if (ids.size() > 0) {
             ArrayList<T> entities = new ArrayList<>();
             Repository<T> repository = findRepository();

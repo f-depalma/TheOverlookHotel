@@ -36,9 +36,9 @@ public class Connector<T extends BaseEntity> {
     public ArrayList<T> load() {
         ArrayList<T> list = new ArrayList<>();
 
-        try {
-            FileInputStream fileIn = new FileInputStream(filePath + fileName);
-            Scanner read = new Scanner(fileIn);
+        //try {
+        //    FileInputStream fileIn = new FileInputStream(filePath + fileName);
+            Scanner read = new Scanner(Connector.class.getResourceAsStream(fileName));
             T obj = null;
             String str;
             if (read.hasNext()) {
@@ -131,9 +131,9 @@ public class Connector<T extends BaseEntity> {
                 }
 
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File " + fileName + " not found, or could not be opened");
-        }
+        //} catch (FileNotFoundException e) {
+        //    System.out.println("File " + fileName + " not found, or could not be opened");
+        //}
 
         return list;
     }

@@ -29,11 +29,12 @@ public class Date {
             String[] splitted = date.split("/");
             day = Integer.parseInt(splitted[0]);
             month = Integer.parseInt(splitted[1]);
+
             if (splitted[2].length() < 4) {
                 throw new DateFormatException();
             }
             year = Integer.parseInt(splitted[2]);
-        } catch (Exception e) {
+        } catch (NumberFormatException | DateFormatException e) {
             throw new DateFormatException();
         }
     }

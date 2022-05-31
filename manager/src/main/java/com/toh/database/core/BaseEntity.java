@@ -31,12 +31,14 @@ public abstract class BaseEntity {
     }
 
     public boolean isValid() {
+        //loop on the mandatory fields
         for (String fieldName : notNullFields.get(this.getClass())) {
             try {
                 Field field = this.getClass().getDeclaredField(fieldName);
                 field.setAccessible(true);
                 Object value = field.get(this);
 
+                // check if the value is not valid (must be not null)
                 if (value == null
                         || (value.getClass().equals(Date.class) && !((Date) value).isValid())
                         || (value.getClass().getSuperclass().equals(MappedField.class) && !((MappedField) value).isValid())) {

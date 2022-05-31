@@ -12,6 +12,7 @@ public class MappedEntity<T extends BaseEntity> extends MappedField<T> {
 
     @Override
     public T getValue() {
+        // get the entity from the ID
         T value = findRepository().findById(id);
         if (value == null) {
             id = null;

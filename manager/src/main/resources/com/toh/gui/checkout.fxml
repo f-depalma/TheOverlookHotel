@@ -14,7 +14,7 @@
             <ComboBox fx:id="rooms" onAction="#roomSelected" prefWidth="150.0" promptText="Select room" />
             <Region prefHeight="200.0" prefWidth="200.0" />
             <Label text="Deiscount (%)" />
-            <TextField fx:id="discount" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="DIscount (%)" text="0" />
+            <TextField fx:id="discount" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="Discount (%)" text="0" />
             <Region prefHeight="100.0" prefWidth="200.0" />
             <Button mnemonicParsing="false" onAction="#calculatePrice" text="Calculate price" />
             <Region prefHeight="200.0" prefWidth="200.0" />
