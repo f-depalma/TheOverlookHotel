@@ -4,5 +4,11 @@
     "booking": 6,
     "price": 100.089,
     "discount": 10.0
+  },
+  {
+    "id": 2,
+    "booking": 7,
+    "price": 100.089,
+    "discount": 10.0
   }
 ]

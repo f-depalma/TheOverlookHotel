@@ -106,10 +106,12 @@ public class CheckinController implements Initializable {
     @FXML
     public void selectBooking() {
         RoomDTO itemSelected = roomComboBox.getSelectionModel().getSelectedItem();
-        table.getItems().add(GuestMapper.entityToDTO(bookings.stream()
-                .filter(b -> b.getRoom().getId().equals(itemSelected.getId()))
-                .findFirst().orElse(null).getGuest()));
-        save.setDisable(false);
+        if(itemSelected != null) {
+            table.getItems().add(GuestMapper.entityToDTO(bookings.stream()
+                    .filter(b -> b.getRoom().getId().equals(itemSelected.getId()))
+                    .findFirst().orElse(null).getGuest()));
+            save.setDisable(false);
+        }
     }
 
     @FXML

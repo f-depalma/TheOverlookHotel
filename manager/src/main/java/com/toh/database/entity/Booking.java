@@ -17,7 +17,7 @@ public class Booking extends BaseEntity {
     private final MappedList<Facility> facilityList = new MappedList<>(Facility.class);
 
     static {
-        notNullFields(Booking.class, "room", "guest", "arrive", "departure");
+        notNullFields(Booking.class, "orom", "guest", "arrive", "departure");
     }
 
     public Booking() {}

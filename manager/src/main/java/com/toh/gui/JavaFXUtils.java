@@ -55,7 +55,7 @@ public class JavaFXUtils {
     }
 
     public static ArrayList<Room> findAvailableRoom(Date from, Date to) {
-        ArrayList<Integer> roomsId = BookingRepository.execute().getAll().stream()
+        ArrayList<Integer> unavailableRoomsId = BookingRepository.execute().getAll().stream()
                 .filter(b -> b.getArrive().isBetween(from, to)
                         || b.getDeparture().isBetween(from, to)
                         || b.getArrive().isAfterThen(from) != b.getDeparture().isAfterThen(to))
@@ -63,7 +63,7 @@ public class JavaFXUtils {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         ArrayList<Room> rooms = RoomRepository.execute().getAll(true);
-        rooms.removeIf(r -> roomsId.contains(r.getId()));
+        rooms.removeIf(r -> unavailableRoomsId.contains(r.getId()));
 
         return rooms;
     }

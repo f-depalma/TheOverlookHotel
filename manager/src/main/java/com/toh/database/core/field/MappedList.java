@@ -41,7 +41,7 @@ public class MappedList<T extends BaseEntity> extends MappedField<T> {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (value.stream().anyMatch(f -> f.getId() == null)) {
-            throw new UnsavedEntityException();
+            throw new UnsavedEntityException(type);
         }
     }
 

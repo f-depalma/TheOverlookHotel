@@ -22,7 +22,7 @@ public class MappedEntity<T extends BaseEntity> extends MappedField<T> {
 
     public void setValue(T entity) throws UnsavedEntityException {
         if (entity.getId() == null) {
-            throw new UnsavedEntityException();
+            throw new UnsavedEntityException(type);
         }
         id = entity.getId();
     }

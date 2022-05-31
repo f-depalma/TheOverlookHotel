@@ -53,14 +53,14 @@ $("#search").click(function () {
                     s = booking.departure.split("/")
                     let departure = new Date(s[2], s[1] - 1, s[0]);
 
-                    console.log(booking.arrive, arrive)
+                    console.log(booking.room, arrive, departure)
 
                     return !(arrive.getTime() <= from.getTime() && departure.getTime() <= from.getTime()
                         || arrive.getTime() >= to.getTime() && departure.getTime() >= to.getTime());
                 }).map(b => b.room);
 
                 rooms.map(room => unavailableRooms.includes(room.id) ? room["available"] = false : room["available"] = true);
-
+                console.log(unavailableRooms)
                 $("#room-container").empty()
 
                 rooms.forEach(room => {
@@ -83,7 +83,7 @@ $("#search").click(function () {
                         '<div class="line">' +
                         '<span class="name">Room n.:</span>' +
                         '<span class="value">' + room.number + '</span></div></div></div>';
-                        
+
                     $("#room-container").append(item);
 
                 })

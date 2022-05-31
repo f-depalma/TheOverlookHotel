@@ -54,5 +54,21 @@
     "homeAddress": "adss",
     "phoneNumber": "+45",
     "nationality": "asd"
+  },
+  {
+    "id": 8,
+    "name": "michal",
+    "birthday": "11/05/2022",
+    "homeAddress": "werrew",
+    "phoneNumber": "5646",
+    "nationality": "ksdkfsd"
+  },
+  {
+    "id": 9,
+    "name": "francesco",
+    "birthday": "04/05/2022",
+    "homeAddress": "sfscvx",
+    "phoneNumber": "2wrwr",
+    "nationality": "xcvxcv"
   }
 ]
