@@ -14,12 +14,12 @@ $('#to').change(function () {
 });
 var rooms;
 
-$.get("../manager/src/main/resources/com/toh/data/room.json", function (data, status) {
+$.get("../manager/src/main/resources/com/toh/database/core/room.json", function (data, status) {
     rooms = data;
     $.ajax({
         async: false,
         type: 'GET',
-        url: '../manager/src/main/resources/com/toh/data/room_type.json',
+        url: '../manager/src/main/resources/com/toh/database/core/room_type.json',
         success: function (types) {
             types.forEach(type => {
                 rooms.filter(r => r.roomType === type.id)
@@ -30,18 +30,13 @@ $.get("../manager/src/main/resources/com/toh/data/room.json", function (data, st
             })
         }
     });
-
-
-
-
-
 })
 
 $("#search").click(function () {
     $.ajax({
         async: false,
         type: 'GET',
-        url: '../manager/src/main/resources/com/toh/data/booking.json',
+        url: '../manager/src/main/resources/com/toh/database/core/booking.json',
         success: function (bookings) {
             if ($('#from').val() != "" && $('#to').val() != "") {
                 let from = new Date($('#from').val())
@@ -84,8 +79,6 @@ $("#search").click(function () {
                     $("#room-container").append(item);
 
                 })
-
-
             }
         }
     });
