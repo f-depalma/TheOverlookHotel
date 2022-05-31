@@ -1,5 +1,6 @@
-
+// get the room types
 $.get("../manager/src/main/java/com/toh/database/core/data/room_type.json", function (data, status) {
+    // add the room types to the left bar and to the list
     data.forEach(type => {
         addToLeftBar(type);
         addType(type);
@@ -30,8 +31,10 @@ function addType(type) {
         '<span class="dollar">$</span>' +
         type.price + ' per night</div>';
 
+    // get the facilities
     $.get("../manager/src/main/java/com/toh/database/core/data/facility.json", function (data, status) {
 
+        // add the facility list to the item
         if (type['facilityList'])
             for (let id of type.facilityList) {
                 let facility = data.find((f) => f.id === id);
