@@ -26,11 +26,13 @@
 }
 
 .left-bar-item:first-child {
-    border-radius: 5px 5px 0 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .left-bar-item:last-child {
-    border-radius: 0 0 5px 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .left-bar-item:hover {
@@ -161,38 +163,38 @@
     }
 
     .room-price {
-        font-size: 18px !important;
+        font-size: 14px !important;
     }
 
     .room-extras {
-        font-size: 18px !important;
+        font-size: 14px !important;
     }
 }
 
 @media screen  and (max-width: 250px){
     .room-price {
-        font-size: 14px !important;
+        font-size: 12px !important;
     }
 
     .room-extras {
-        font-size: 14px !important;
+        font-size: 12px !important;
     }
 }
 
 .room-price {
     align-items: center;
-    font-size: 22px;
+    font-size: 16px;
     display: flex;
 }
 
 .dollar {
     color:  green;
-    font-size: 28px;
+    font-size: 22px;
 }
 
 .room-extras {
     align-items: center;
-    font-size: 22px;
+    font-size: 16px;
     display: flex;
 }
 

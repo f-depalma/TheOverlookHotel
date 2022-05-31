@@ -70,3 +70,12 @@
         margin-top: 80px;
     }
 }
+
+#search {
+    background-color: #591414;
+    border: none;
+}
+
+#search:active {
+    background-color: #400f0f;
+}
