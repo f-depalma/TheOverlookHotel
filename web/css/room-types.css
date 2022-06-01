@@ -59,20 +59,6 @@
     }
 }
 
-@media screen and (max-width: 314px) {
-    #left-bar-container {
-        width: 190px;
-        left: -177px;
-    }
-
-    #menu-button {
-        top: 230px !important;
-    }
-    #menuIsOpen:checked ~ #left-bar-container,
-    #menuIsOpen:checked ~ #menu-button {
-        transform: translate(177px, 0px) !important;
-    }
-}
 
 #closeMenu {
     margin-top: 7px;
@@ -82,47 +68,14 @@
     margin-top: 7px;
 }
 
-#menu-button {
-    width: 32px;
-    position: fixed;
-    top: 252px;
-    left: 0px;
-    transition: transform 1s;
-    z-index: 10;
-    background: #947a79;
-    border-radius: 0 100% 100% 0;
-}
-
-@media screen and (max-width: 767px) {
-    #menu-button {
-        top: 203px;
-    }
-}
-
-#menuIsClose:checked ~ #menu-button > #closeMenu,
-#menuIsOpen:checked ~ #menu-button > #openMenu {
-    display: none;
-}
-
-#menuIsOpen:checked ~ #menu-button > #closeMenu,
-#menuIsClose:checked ~ #menu-button > #openMenu {
-    display: block;
-}
-
-@media screen and (max-width: 1199px){
-    #menuIsOpen:checked ~ #left-bar-container,
-    #menuIsOpen:checked ~ #menu-button {
-        transform: translate(277px, 0px);
-    }
-}
-
-
 .room-card {
     position: relative;
     background-color: #fff;
     border-radius: 5px;
     margin-bottom: 40px;
     scroll-margin-top: 175px;
+    padding-left: 0 !important;
+    margin-bottom: 20px !important;
 }
 
 .image-room {

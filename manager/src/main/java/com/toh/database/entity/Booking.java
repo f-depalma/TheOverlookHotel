@@ -18,7 +18,7 @@ public class Booking extends BaseEntity {
 
     // set the not null field only at loading
     static {
-        notNullFields(Booking.class, "orom", "guest", "arrive", "departure");
+        notNullFields(Booking.class, "room", "guest", "arrive", "departure");
     }
 
     public Booking() {}

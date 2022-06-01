@@ -2,26 +2,14 @@
 $.get("../manager/src/main/java/com/toh/database/core/data/room_type.json", function (data, status) {
     // add the room types to the left bar and to the list
     data.forEach(type => {
-        addToLeftBar(type);
         addType(type);
     });
 
     $("#left-bar .line").last().remove();
-
 })
 
-function addToLeftBar(type) {
-    let item = '<div class="left-bar-item"><a href="#'
-        + type.name.replace(" ", "-") +
-        '"><div>'
-        + type.name.toUpperCase() +
-        '</div></a></div>'
-    $("#left-bar").append(item);
-    $("#left-bar").append('<div class="line"></div>');
-}
-
 function addType(type) {
-    let item = '<div id="' + type.name.replace(" ", "-") + '" class="room-card row mx-2">' +
+    let item = '<div id="' + type.name.replace(" ", "-") + '" class="room-card row m-0">' +
         '<img alt="" class="image-room col-md-5 px-0" src="images/' + type.imageName + '">' +
         '<div class="image-descr col-md-7 p-4">' +
         '<h1>' + type.name.toUpperCase() + '</h1>' +

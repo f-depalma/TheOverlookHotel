@@ -72,8 +72,14 @@
 #search {
     background-color: #591414;
     border: none;
+    height: 30px;
+    line-height: 20px;
 }
 
 #search:active {
     background-color: #400f0f;
 }
+
+form .form-group label {
+        line-height: 15px;
+    }
